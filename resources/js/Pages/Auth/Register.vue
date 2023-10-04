@@ -21,7 +21,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout/>
         <Head title="Register" />
 
         <form @submit.prevent="submit">
@@ -99,5 +99,5 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+    
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-
+import { Link } from '@inertiajs/vue3';
 
 
 </script>
@@ -7,15 +7,15 @@
   <div class="navbar">
     <div class="container mx-auto">
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">Leria</a>
+        <Link class = "normal-case text-xl" href="/register">LERIA</Link>
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
           <li>
-            <a>Registrarse</a>
+            <Link href="/register">Registrate</Link>
           </li>
           <li>
-            <a>Entrar</a>
+            <Link href="/login">Entrar</Link>
           </li>
         </ul>
       </div>
