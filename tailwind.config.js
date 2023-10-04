@@ -18,5 +18,12 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        require('daisyui'),
+    ],
+    darkMode: 'class',
+    daisyui:{
+        themes: ["synthwave", "fantasy"],
+        darkTheme : "synthwave"
+    }
 };
