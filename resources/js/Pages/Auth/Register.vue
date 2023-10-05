@@ -4,8 +4,10 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Stepper from '@/Components/Display/Stepper.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, shallowRef} from 'vue';
+import { onBeforeUpdate } from 'vue';
 import { onMounted } from 'vue';
 
 const form = useForm({
@@ -17,26 +19,24 @@ const form = useForm({
     password_confirmation: '',
 });
 
-let step = ref(1);
-
-const now = new Date();
-
-onMounted(() => {
-    console.log('on Mount  || ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds());
-
+let step = ref(1)
+let errorStep = ref([]);
+onBeforeUpdate(()=>{
+    
+    if (form.hasErrors) {
+        if (form.errors.name && errorStep.value.indexOf(1) == -1) {
+            errorStep.value.push(1);
+        }
+        if ((form.errors.userName || form.errors.email) && errorStep.value.indexOf(2) == -1) {
+            errorStep.value.push(2);
+        } 
+        if ((form.errors.password || form.errors.password_confirmation)  && errorStep.value.indexOf(3) == -1) {
+            errorStep.value.push(3);
+        }
+    }
+    //console.log(errorStep.indexOf(1));
 })
 
-console.log();
-
-if (!form.hasErrors) {
-    if (form.errors.password || form.errors.password_confirmation) {
-        step = ref(3);
-    } else if (form.errors.userName || form.errors.email) {
-        step = ref(2);
-    } else if (form.errors.name) {
-        step = ref(1);
-    }
-}
 
 
 const submit = () => {
@@ -48,7 +48,7 @@ const submit = () => {
 <template>
     <Head title="Register" />
     <div class="hero min-h-screen bg-base-200">
-        <div class="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+        <div class="card flex-shrink-0 w-full max-w-screen-sm sm:max-w-md   shadow-2xl bg-base-100">
             <form class="card-body" @submit.prevent="">
                 <div v-show="step == 1">
                     <div class="form-control">
@@ -125,13 +125,9 @@ const submit = () => {
                 </div>
             </form>
 
+
             <div class="card-body">
-                <ul class="steps">
-                    <li class="step step-primary"></li>
-                    <li class="step"></li>
-                    <li class="step"></li>
-                    <li class="step"></li>
-                </ul>
+                <Stepper :currentStep="step" :totalSteps='3' :error="errorStep" @select-step="(n) => step = n" />
             </div>
             <div class="card-body pt-0 flex w-full">
                 <p>¿Ya tienes una cuenta?</p>
