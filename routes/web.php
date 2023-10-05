@@ -19,9 +19,12 @@ use Inertia\Inertia;
 */
 Route::get('/', [SiteController::class , 'index']);
 
-
+/*
 Route::get('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'login']);
+
+
+Route::post('/register', [AuthController::class, 'handleRegister']);*/
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),

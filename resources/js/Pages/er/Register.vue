@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post('/registeruser');
+    form.post('/register');
 };
 
 let step = ref(1);

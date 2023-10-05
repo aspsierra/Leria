@@ -75,7 +75,7 @@ const submit = () => {
                 </form>
                 <div class="card-body pt-0 flex w-full" >               
                     <p>¿No tienes cuenta?</p>
-                    <Link href="/register" class="btn btn-secondary">Regístrate</Link>
+                    <Link href="/registeruser" class="btn btn-secondary">Regístrate</Link>
                 </div>
             </div>
         </div>
