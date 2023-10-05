@@ -72,6 +72,7 @@ const submit = () => {
                         <button class="btn btn-primary" @click="submit">Login</button>
                     </div>
                 </form>
+                <div class="card-body divider my-0 py-4">O</div>
                 <div class="card-body pt-0 flex w-full" >               
                     <p>¿No tienes cuenta?</p>
                     <Link href="/register" class="btn btn-secondary">Regístrate</Link>

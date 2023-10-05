@@ -129,6 +129,7 @@ const submit = () => {
             <div class="card-body">
                 <Stepper :currentStep="step" :totalSteps='3' :error="errorStep" @select-step="(n) => step = n" />
             </div>
+            <div class="card-body divider my-0 py-4">O</div>
             <div class="card-body pt-0 flex w-full">
                 <p>¿Ya tienes una cuenta?</p>
                 <Link href="/login" class="btn btn-secondary">Entrar</Link>
