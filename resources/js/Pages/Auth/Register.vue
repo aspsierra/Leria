@@ -10,14 +10,14 @@ import { ref } from 'vue';
 const form = useForm({
     name: '',
     surname: '',
-    // userName: '',
-    // email: '',
-    // password: '',
-    // passwordConfirm: '',
+    userName: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
 });
 
 const submit = () => {
-    form.post('/registeruser');
+    form.post('/register');
 };
 
 let step = ref(1);
@@ -48,7 +48,7 @@ let step = ref(1);
                     </div>
                 </div>
 
-                <!-- <div v-show="step == 2">
+                <div v-show="step == 2">
                     <div class="form-control">
                         <InputLabel for="userName" value="Nombre de usuario" />
 
@@ -78,22 +78,22 @@ let step = ref(1);
 
                     </div>
                     <div class="form-control mt-4">
-                        <InputLabel for="passwordConfirm" value="Repite tu contraseña" />
+                        <InputLabel for="password_confirmation" value="Repite tu contraseña" />
 
-                        <TextInput id="passwordConfirm" type="password" class="mt-1 block w-full" v-model="form.passwordConfirm"
+                        <TextInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation"
                             required autocomplete="current-password-confirm" placeHolder="Contraseña" />
 
-                         <InputError class="mt-2" :message="form.errors.passwordConfirm" /> 
+                         <InputError class="mt-2" :message="form.errors.password_confirmation" /> 
 
                     </div>
-                </div> -->
-                <button v-if="step == 1" class="btn btn-primary w-full" @click="submit">Registrar</button>
+                </div>
                 <div class="flex flex-row w-1/3 content-between mt-4">
                     <button class="btn btn-secondary w-full" :class="step == 1 ? 'btn-disabled' : 'btn-active'"
-                        @click="step--">Atrás</button>
-
-                    <!-- <button v-else class="btn btn-primary w-full" :class="step >= 3 ? 'btn-disabled' : 'btn-active'"
-                        @click="step++">Continuar</button> -->
+                    @click="step--">Atrás</button>
+                    
+                    <button v-if="step == 3" class="btn btn-primary w-full" @click="submit">Registrar</button>
+                    <button v-else class="btn btn-primary w-full" :class="step >= 3 ? 'btn-disabled' : 'btn-active'"
+                        @click="step++">Continuar</button> 
                 </div>
             </form>
 

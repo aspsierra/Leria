@@ -17,7 +17,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [SiteController::class , 'index']);
+Route::get('/dashboard', [SiteController::class , 'index']);
 
 /*
 Route::get('/register', [AuthController::class, 'register']);
