@@ -22,18 +22,3 @@ createInertiaApp({
     },
 });
 
-// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-if (localStorage.theme === 'synthwave' || (!('synthwave' in localStorage) && window.matchMedia('(prefers-color-scheme: synthwave)').matches)) {
-    document.documentElement.classList.add('synthwave')
-  } else {
-    document.documentElement.classList.remove('synthwave')
-  }
-  
-  // Whenever the user explicitly chooses light mode
-  localStorage.theme = 'fantasy'
-  
-  // Whenever the user explicitly chooses dark mode
-  localStorage.theme = 'synthwave'
-  
-  // Whenever the user explicitly chooses to respect the OS preference
-  localStorage.removeItem('theme')

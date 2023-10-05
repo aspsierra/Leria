@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import GuestLayoutVue from '@/Layouts/GuestLayout.vue';
+import UserLayout from '@/Layouts/UserLayout.vue';
 import { ref } from 'vue';
 
 import axios from 'axios';
@@ -16,7 +17,7 @@ const logout = () =>{
 </script>
 <template>
     <head title='Inicio' />
-    <component :is="user === null ? GuestLayoutVue : 'div'" />
+    <component :is="user === null ? GuestLayoutVue : UserLayout" />
     <div class="container mx-auto">
         <p>Benvido </p><p v-if=" user !== null">{{ user.name }}</p>
         <div class="avatar">
