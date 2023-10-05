@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('user_name')->unique();            
             $table->string('name')->nullable(false);
             $table->string('password')->nullable(false);
-            $table->string('profile_pic');
-            $table->date('register_date');
+            $table->string('profile_pic')->default('/public/storage/default.jpg');
+            $table->date('register_date')->default(date('Y-m-d'));
             $table->rememberToken();
             $table->timestamps();
         });
