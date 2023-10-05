@@ -1,5 +1,6 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
+//import Checkbox from '@/Components/Checkbox.vue';
+//import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -17,15 +18,13 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
+    user_name: '',
     password: '',
     remember: false,
 });
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
+    form.post('/login');
 };
 </script>
 
@@ -40,12 +39,12 @@ const submit = () => {
                 <p class="py-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi repellendus fuga maxime. Dolorem vero ullam earum vitae numquam voluptatum minima eius quos est velit, porro architecto ipsam fugiat? Similique, nulla.</p>
             </div>
             <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                <form class="card-body" @submit.prevent="submit">
+                <form class="card-body" @submit.prevent="">
                     <div class="form-control">
-                        <InputLabel for="userName" value="Nombre de usuario" />
+                        <InputLabel for="user_name" value="Nombre de usuario" />
 
-                        <TextInput id="userName" type="text" class="mt-1 block w-full" v-model="form.userName" required
-                            autofocus autocomplete="username" placeHolder="Nombre de usuario" />
+                        <TextInput id="user_name" type="text" class="mt-1 block w-full" v-model="form.user_name" required
+                            autofocus autocomplete="user_name" placeHolder="Nombre de usuario" />
 
                         <InputError class="mt-2" :message="form.errors.userName" />
                     </div>
@@ -70,7 +69,7 @@ const submit = () => {
                     </div>
 
                     <div class="form-control mt-6">
-                        <button class="btn btn-primary">Login</button>
+                        <button class="btn btn-primary" @click="submit">Login</button>
                     </div>
                 </form>
                 <div class="card-body pt-0 flex w-full" >               
