@@ -6,7 +6,8 @@ defineProps({
         type: String,
         required: true,
     },
-    placeHolder : String
+    placeHolder : String,
+    error: String
 });
 
 defineEmits(['update:modelValue']);
@@ -18,13 +19,12 @@ onMounted(() => {
         input.value.focus();
     }
 });
-
 defineExpose({ focus: () => input.value.focus() });
 </script>
 
 <template>
     <input
-        class="input input-bordered"        
+        class="input input-bordered"    
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"
