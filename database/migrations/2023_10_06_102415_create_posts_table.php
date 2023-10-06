@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->string('message', 140);
-            $table->integer('n_shared');
-            $table->integer('n_likes');
-            $table->integer('n_comments');
+            $table->integer('n_shared')->default(0);
+            $table->integer('n_likes')->default(0);
+            $table->integer('n_comments')->default(0);
             $table->date('date');
             $table->time('time');
             $table->timestamps();
