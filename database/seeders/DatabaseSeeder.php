@@ -20,9 +20,13 @@ class DatabaseSeeder extends Seeder
         Post::factory()->count(50)->create();
 
         $this->call([
-             LikeSeeder::class,
-             ShareSeeder::class,
-             CommentSeeder::class
+            LikeSeeder::class,
+            ShareSeeder::class,
+            CommentSeeder::class
+        ]);
+
+        $this->call([
+            PostSeeder::class,
         ]);
 
        
