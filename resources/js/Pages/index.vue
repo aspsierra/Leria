@@ -17,12 +17,13 @@ const logout = () =>{
 </script>
 <template>
     <head title='Inicio' />
-    <component :is="user === null ? GuestLayoutVue : UserLayout" />
+    <component :is="user === null ? GuestLayoutVue : UserLayout" :avatar = "user.profile_pic"
+    class="container mx-auto"/>
     <div class="container mx-auto">
         <p>Benvido </p><p v-if=" user !== null">{{ user.name }}</p>
         <div class="avatar">
             <div class="w-24 rounded">
-                <img src='../../../public/storage/default.jpg' />
+                <img :src="'/storage/' + user.profile_pic "/>
             </div>
         </div>
         <button class="btn btn-accent" @click="logout">LOgout</button>

@@ -1,36 +1,37 @@
 <script setup>
+import { BellIcon } from '../components/Icons/_ExportIcons';
+import SearchBarVue from '../components/Actions/SearchBar.vue';
+import AvatarDropdown from '../components/Actions/AvatarDropdown.vue';
+import BottomNavigation from '@/components/Display/BottomNavigation.vue';
+import TopNavigation from '../components/Display/TopNavigation.vue'
+import { ref } from 'vue';
 
-import ThemeToggle from '@/Components/Actions/ThemeToggle.vue'
+const props = defineProps({
+    avatar: String
+})
+
+let width = ref(window.innerWidth);
 
 </script>
 
 <template>
-    <div class="navbar container mx-auto bg-base-100">
-        <div class="flex-1">
-            <a class="btn btn-ghost normal-case text-xl">Leria</a>
+    <div class="navbar bg-base-100">
+        <div class="navbar-start">
+            <BottomNavigation class="lg:hidden" />
+            <TopNavigation class="hidden lg:block"/>
         </div>
-        <div class="flex-none gap-2">
-            <div class="form-control">
-                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-            </div>
-            <ThemeToggle/>
-            <div class="dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full">
-                        <!-- <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> -->
-                    </div>
-                </label>
-                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                    <li>
-                        <a class="justify-between">
-                            Profile
-                            <span class="badge">New</span>
-                        </a>
-                    </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
-                </ul>
-            </div>
+        <div class="navbar-center">
+            <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+        </div>
+        <div class="navbar-end">
+            <SearchBarVue :placeholder="'Buscar'" class="hidden lg:block" />
+            <!-- <button class="btn btn-ghost btn-circle">
+                <div class="indicator hidden lg:block">
+                    <BellIcon />
+                    <span class="badge badge-xs badge-primary indicator-item"></span>
+                </div>
+            </button> -->
+            <AvatarDropdown :avatar="avatar" />
         </div>
     </div>
 </template>
