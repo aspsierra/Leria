@@ -9,7 +9,8 @@ import axios from 'axios';
 import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
-    user: Object
+    user: Object,
+    posts: Array
 })
 
 const logout = () => {

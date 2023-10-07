@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LikeSeeder::class,
             ShareSeeder::class,
-            CommentSeeder::class
+            CommentSeeder::class,
+            FollowersSeeder::class
         ]);
 
         $this->call([
