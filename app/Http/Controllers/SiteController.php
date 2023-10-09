@@ -27,8 +27,8 @@ class SiteController extends Controller
             ->join('users as u', 'p.user_id', '=', 'u.id')
             ->join('followers as f', 'u.id', '=', 'f.user_id')
             ->where('f.follower_id', Auth::user()->id)
-            ->orderBy('p.date', 'asc')
-            ->orderBy('p.time', 'asc')
+            ->orderBy('p.date', 'desc')
+            ->orderBy('p.time', 'desc')
             ->get();
         return Inertia::render('index', [
             'user' => Auth::user(),
@@ -43,12 +43,14 @@ class SiteController extends Controller
             'userPost' => 'required|string|max:140'
         ]);
 
-        $newPost = Post::create([
+        Post::create([
             'user_id' => Auth::user()->id,
             'message' => $request->userPost,
             'date' => date('Y-m-d'),
             'time' => date('H:i:s')
         ]);
+
+        return redirect()->back();
 
 
     }
