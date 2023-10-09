@@ -12,7 +12,7 @@ const form = useForm({
 })
 
 const submit = () =>{
-    form.post('/publishPost');
+    form.post('/publishPost?tz=' + Intl.DateTimeFormat().resolvedOptions().timeZone);
 }
 </script>
 <template>

@@ -27,6 +27,7 @@ class SiteController extends Controller
             ->join('users as u', 'p.user_id', '=', 'u.id')
             ->join('followers as f', 'u.id', '=', 'f.user_id')
             ->where('f.follower_id', Auth::user()->id)
+            ->orWhere('p.user_id', Auth::user()->id)
             ->orderBy('p.date', 'desc')
             ->orderBy('p.time', 'desc')
             ->get();
@@ -38,10 +39,11 @@ class SiteController extends Controller
 
     public function storePost(Request $request)
     {
-
         $request->validate([
             'userPost' => 'required|string|max:140'
         ]);
+
+        date_default_timezone_set($request->tz);
 
         Post::create([
             'user_id' => Auth::user()->id,

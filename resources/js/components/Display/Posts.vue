@@ -6,6 +6,32 @@ const props = defineProps({
     post: Object
 })
 
+function displayDate() {
+    let datePost = new Date(props.post.date);
+    let today = new Date();
+
+    console.log(today.toLocaleDateString() > datePost.toLocaleDateString());
+    if(today.toLocaleDateString() > datePost.toLocaleDateString()){
+        return datePost.toLocaleDateString()
+    } 
+    
+    let time = [props.post.time.split(':')[0],props.post.time.split(':')[1],props.post.time.split(':')[2]]
+    let timePost = new Date();
+    timePost.setHours(time[0]);
+    timePost.setMinutes(time[1]);
+    timePost.setSeconds(time[2]);
+
+    console.log(today.getHours() - timePost.getHours());
+        // 13                   12
+    if(today.getHours() > timePost.getHours()){
+        return 'Hace ' + (today.getHours() - timePost.getHours()) +' h.'
+    } else if(today.getMinutes() > timePost.getMinutes()){
+        return 'Hace ' + (today.getMinutes() - timePost.getMinutes()) +' mins.'
+    } else{
+        return 'Hace ' + (today.getSeconds() - timePost.getSeconds()) +' segs.'
+    }
+}
+
 </script>
 
 
@@ -20,7 +46,7 @@ const props = defineProps({
         <div class="w-full">
             <header class="flex gap-2">
                 <h2 class="font-semibold hover:underline">{{ post.name }}</h2>
-                <h4 class="font-thin">{{ post.user_name }}</h4>
+                <h4 class="text-gray-500">{{ post.user_name }} · {{ displayDate() }}</h4>
             </header>
 
             <body>
