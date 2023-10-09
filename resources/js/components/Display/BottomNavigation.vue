@@ -2,7 +2,7 @@
 import { SearchIcon, BellIcon, HomeIcon } from "../Icons/_ExportIcons";
 </script>
 <template>
-    <div class="btm-nav">
+    <div class="btm-nav z-50">
         <button class="active">
             <HomeIcon />
         </button>
