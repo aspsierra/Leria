@@ -35,4 +35,21 @@ class SiteController extends Controller
             'posts' => $posts
         ]);
     }
+
+    public function storePost(Request $request)
+    {
+
+        $request->validate([
+            'userPost' => 'required|string|max:140'
+        ]);
+
+        $newPost = Post::create([
+            'user_id' => Auth::user()->id,
+            'message' => $request->userPost,
+            'date' => date('Y-m-d'),
+            'time' => date('H:i:s')
+        ]);
+
+
+    }
 }
