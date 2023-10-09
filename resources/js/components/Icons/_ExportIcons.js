@@ -4,6 +4,8 @@ import HomeIcon from './HomeIcon.vue';
 import LikeIcon from './LikeIcon.vue';
 import ShareIcon from './ShareIcon.vue';
 import CommentIcon from './CommentIcon.vue';
+import PublishIcon from './PublishIcon.vue';
+import ArrowUpIcon from './ArrowUpIcon.vue';
 
 export{
     BellIcon,
@@ -11,5 +13,7 @@ export{
     HomeIcon,
     LikeIcon,
     ShareIcon,
-    CommentIcon
+    CommentIcon,
+    PublishIcon,
+    ArrowUpIcon
 }

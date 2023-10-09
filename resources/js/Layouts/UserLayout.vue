@@ -1,5 +1,5 @@
 <script setup>
-import { BellIcon } from '../components/Icons/_ExportIcons';
+import { PublishIcon, ArrowUpIcon } from '../components/Icons/_ExportIcons';
 import SearchBarVue from '../components/Actions/SearchBar.vue';
 import AvatarDropdown from '../components/Actions/AvatarDropdown.vue';
 import BottomNavigation from '@/components/Display/BottomNavigation.vue';
@@ -7,31 +7,40 @@ import TopNavigation from '../components/Display/TopNavigation.vue'
 import { ref } from 'vue';
 
 const props = defineProps({
-    avatar: String
+    avatar: String,
+    scrollY: Number
 })
 
-let width = ref(window.innerWidth);
+let screenWidth = 0
+
+window.addEventListener('resize', function(){
+    screenWidth =  window.innerWidth;
+})
 
 </script>
 
 <template>
-    <div class="navbar bg-base-100">
+    <div id="index" class="navbar bg-base-100 sticky top-0 z-50">
         <div class="navbar-start">
-            <BottomNavigation class="lg:hidden" />
-            <TopNavigation class="hidden lg:block"/>
+            <BottomNavigation class=" lg:hidden" />
+            <TopNavigation class="hidden lg:block" />
         </div>
         <div class="navbar-center">
             <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
         </div>
         <div class="navbar-end">
             <SearchBarVue :placeholder="'Buscar'" class="hidden lg:block" />
-            <!-- <button class="btn btn-ghost btn-circle">
-                <div class="indicator hidden lg:block">
-                    <BellIcon />
-                    <span class="badge badge-xs badge-primary indicator-item"></span>
-                </div>
-            </button> -->
             <AvatarDropdown :avatar="avatar" />
         </div>
+    </div>
+    <div v-if="scrollY > 100 || screenWidth < 1024" class='fixed bottom-10 right-10 my-8 float-right px-5 py-2'>
+        <button class='btn btn-circle bg-purple-500 text-white border-0'>
+            <PublishIcon class="h-6 w-6"/>
+        </button>
+    </div>
+    <div v-if="scrollY > 100" class='fixed bottom-32 right-10 my-8 float-right px-5 py-2'>
+        <button class='btn btn-circle bg-purple-500 text-white border-0'>
+            <a href="#index"><ArrowUpIcon class="h-6 w-6"/></a> 
+        </button>
     </div>
 </template>

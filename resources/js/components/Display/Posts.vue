@@ -10,7 +10,6 @@ function displayDate() {
     let datePost = new Date(props.post.date);
     let today = new Date();
 
-    console.log(today.toLocaleDateString() > datePost.toLocaleDateString());
     if(today.toLocaleDateString() > datePost.toLocaleDateString()){
         return datePost.toLocaleDateString()
     } 
@@ -21,7 +20,6 @@ function displayDate() {
     timePost.setMinutes(time[1]);
     timePost.setSeconds(time[2]);
 
-    console.log(today.getHours() - timePost.getHours());
         // 13                   12
     if(today.getHours() > timePost.getHours()){
         return 'Hace ' + (today.getHours() - timePost.getHours()) +' h.'

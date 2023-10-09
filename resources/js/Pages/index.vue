@@ -22,11 +22,18 @@ const form = useForm({
     post: ''
 })
 
+let scrollY = ref(window.scrollY);
+
+function scrollPosition(){
+    scrollY.value = window.scrollY;
+    console.log(scrollY.value);
+}
+
 </script>
 <template>
     <Head title='Inicio' />
-    <component :is="user === null ? GuestLayoutVue : UserLayout" :avatar="user.profile_pic" class="container mx-auto" />
-    <div class="container mx-auto lg:flex flex-row gap-1 mt-1">
+    <component :is="user === null ? GuestLayoutVue : UserLayout" :avatar="user.profile_pic" :scrollY="scrollY"  class="container mx-auto" />
+    <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
         <section class="hidden bg-red-400 lg:block  lg:w-1/4">
             ssss
         </section>
