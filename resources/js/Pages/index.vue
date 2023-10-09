@@ -11,7 +11,8 @@ import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
     user: Object,
-    posts: Array
+    posts: Array,
+    alert: Number
 })
 
 const logout = () => {

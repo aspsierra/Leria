@@ -39,9 +39,12 @@ class SiteController extends Controller
 
     public function storePost(Request $request)
     {
+        //dd($request->alert);
+
         $request->validate([
             'userPost' => 'required|string|max:140'
         ]);
+
 
         date_default_timezone_set($request->tz);
 
@@ -49,7 +52,8 @@ class SiteController extends Controller
             'user_id' => Auth::user()->id,
             'message' => $request->userPost,
             'date' => date('Y-m-d'),
-            'time' => date('H:i:s')
+            'time' => date('H:i:s'),
+            'alert' => $request->alert
         ]);
 
         return redirect()->back();
