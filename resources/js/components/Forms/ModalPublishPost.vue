@@ -35,7 +35,7 @@ const submit = () => {
                 </div>
                 
                 <div class="modal-action">
-                    <form method="dialog" class="w-full flex justify-betweer">
+                    <form method="dialog" class="w-full flex justify-between">
                         <button class="btn btn-primary" @click="submit">Publicar</button>
                         <button class="btn">Close</button>
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>

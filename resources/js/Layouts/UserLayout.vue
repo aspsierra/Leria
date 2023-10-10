@@ -1,4 +1,5 @@
 <script setup>
+import { usePage } from '@inertiajs/vue3';
 import { PublishIcon, ArrowUpIcon } from '../components/Icons/_ExportIcons';
 import ModalPublishPost from '@/components/Forms/ModalPublishPost.vue';
 import SearchBarVue from '../components/Actions/SearchBar.vue';
@@ -12,10 +13,12 @@ const props = defineProps({
     scrollY: Number
 })
 
-let screenWidth = 0
+const page = usePage()
 
-window.addEventListener('resize', function(){
-    screenWidth =  window.innerWidth;
+let screenWidth = window.innerWidth;
+
+window.addEventListener('resize', function () {
+    screenWidth = window.innerWidth;
 })
 
 </script>
@@ -36,15 +39,15 @@ window.addEventListener('resize', function(){
     </div>
     <div v-if="scrollY > 100 || screenWidth < 1024" class='fixed bottom-10 right-10 my-8 float-right px-5 py-2'>
         <button class='btn btn-circle bg-purple-500 text-white border-0' onclick="my_modal_1.showModal()">
-            <PublishIcon class="h-6 w-6"/>
+            <PublishIcon class="h-6 w-6" />
         </button>
     </div>
     <div v-if="scrollY > 100" class='fixed bottom-32 right-10 my-8 float-right px-5 py-2'>
         <button class='btn btn-circle bg-purple-500 text-white border-0'>
-            <a href="#index"><ArrowUpIcon class="h-6 w-6"/></a> 
+            <a href="#index">
+                <ArrowUpIcon class="h-6 w-6" />
+            </a>
         </button>
     </div>
 
-    <ModalPublishPost id="my_modal_1"/>
-
-</template>
+<ModalPublishPost id="my_modal_1" /></template>

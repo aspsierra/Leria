@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SiteController extends Controller
 {
@@ -39,11 +40,23 @@ class SiteController extends Controller
 
     public function storePost(Request $request)
     {
-        //dd($request->alert);
+        //dd($request);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'userPost' => 'required|string|max:140'
         ]);
+        
+
+        if($validator->fails()){
+
+            if($request->alert){
+                //$request->session()->flash('Not Valid');
+            }
+            //$request->session->flash();
+            return redirect()->back()
+                ->withErrors($validator);
+        }
+
 
 
         date_default_timezone_set($request->tz);
