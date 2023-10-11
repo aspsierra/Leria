@@ -29,8 +29,8 @@ function scrollPosition(){
         <section class="hidden bg-red-400 lg:block  lg:w-1/4">
             <UserBrievInfo :user="user" :posts="nPosts" :following="nFollowing" :followers="nFollowers"/>
         </section>
-        <section class="bg-gray-200 lg:w-2/4 mx-4">
-            <div class="block bg-purple-300">
+        <section class="bg-gray-700 lg:w-2/4 mx-4">
+            <div class="hidden lg:block bg-purple-300">
                 <PublishPostLarge :pic="user.profile_pic"/>
             </div>
             <div v-for="post in posts" class="divide divide-y">

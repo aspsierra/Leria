@@ -10,12 +10,12 @@ const props = defineProps({
 
 <template>
     <div class="bg-indigo-300">
-        <img class="object-cover h-40 w-full" src="/storage/default_background.jpg" alt="">
+        <img class="object-cover h-36 w-full" src="/storage/default_background.jpg" alt="">
     </div>
-    <div class=" bg-green-200">
+    <div class=" bg-gray-800 pb-4" >
         <header class="flex gap-2 ml-5">
             <div class="-mt-8 relative">
-                <div class="top-0 left-0 rounded-full w-20 h-20 ring-4 ring-green-200 bg-green-200"></div>
+                <div class="top-0 left-0 rounded-full w-20 h-20 ring-4 ring-gray-800 bg-gray-800"></div>
                 <img class="absolute top-0 left-0 w-20 z-40 rounded-full" :src="'/storage/' + user.profile_pic" />
             </div>
             <div class="inline-block align-baseline">
@@ -26,15 +26,15 @@ const props = defineProps({
 
         <body class="flex justify-evenly mt-4">
             <div class="">
-                <h3 class="font-semibold text-gray-600">Posts</h3>
+                <h3 class="font-semibold text-gray-500">Posts</h3>
                 <h2 class="text-lg font-bold">{{ posts }}</h2>
             </div>
             <div class="">
-                <h3 class="font-semibold text-gray-600">Siguiendo</h3>
+                <h3 class="font-semibold text-gray-500">Siguiendo</h3>
                 <h2 class="text-lg font-bold">{{ following }}</h2>
             </div>
             <div class="">
-                <h3 class="font-semibold text-gray-600">Seguidores</h3>
+                <h3 class="font-semibold text-gray-500">Seguidores</h3>
                 <h2 class="text-lg font-bold">{{ followers }}</h2>
             </div>
         </body>
