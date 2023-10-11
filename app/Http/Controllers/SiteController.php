@@ -91,7 +91,35 @@ class SiteController extends Controller
     }
 
 
-    public function viewProfile(){
-        return Inertia::render('UserProfile');
+    public function viewProfile(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $nPosts = DB::table('posts')
+            ->where('user_id', Auth::user()->id)
+            ->count('id');
+
+        $nFollowers = DB::table('followers')
+            ->where('user_id', Auth::user()->id)
+            ->count();
+
+        $nFollowing = DB::table('followers')
+            ->where('follower_id', Auth::user()->id)
+            ->count();
+
+        if ($request->user) {
+            $user = DB::table('users')
+                ->select()
+                ->where('id', $request->user)
+                ->get();
+        }
+
+        return Inertia::render('UserProfile',[
+            'user' => $user,
+            'nPosts' => $nPosts,
+            'nFollowers' => $nFollowers,
+            'nFollowing' => $nFollowing
+        ]);
     }
 }
