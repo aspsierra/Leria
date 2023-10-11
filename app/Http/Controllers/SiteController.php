@@ -89,4 +89,9 @@ class SiteController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function viewProfile(){
+        return Inertia::render('UserProfile');
+    }
 }

@@ -22,6 +22,7 @@ Route::redirect('/', 'login');
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [SiteController::class , 'index']);
     Route::post('/publishPost', [SiteController::class, 'storePost']);
+    Route::get('/profile', [SiteController::class, 'viewProfile']);
 });
 
 /*
