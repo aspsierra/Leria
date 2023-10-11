@@ -14,21 +14,29 @@ class SiteController extends Controller
     public function index()
     {
         $userPosts = DB::table('posts')->select()->where('user_id', Auth::user()->id)->get();
+
         /* 
         * --seleccionar posts de las cuentas a las que sigue el usuario--
 
-        SELECT p.* FROM posts AS p 
-        JOIN users as u ON p.user_id = u.id 
+        SELECT p.*, u.name, u.user_name, u.profile_pic
+        FROM posts AS p 
+        JOIN users AS u ON p.user_id = u.id 
         JOIN followers AS f ON u.id = f.user_id 
-        WHERE f.follower_id = 1 OR u.id = 1
+        WHERE f.follower_id = 3 
+        OR p.user_id = 3
+        GROUP BY p.id 
+        ORDER BY p.date DESC, p.time DESC
         */
 
+        DB::statement("SET SQL_MODE=''");
+
         $posts = DB::table('posts as p')
-            ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic' )
+            ->select('p.*' , 'u.user_name', 'u.name', 'u.profile_pic')
             ->join('users as u', 'p.user_id', '=', 'u.id')
             ->join('followers as f', 'u.id', '=', 'f.user_id')
             ->where('f.follower_id', Auth::user()->id)
             ->orWhere('p.user_id', Auth::user()->id)
+            ->groupBy('p.id')
             ->orderBy('p.date', 'desc')
             ->orderBy('p.time', 'desc')
             ->get();
