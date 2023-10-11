@@ -13,8 +13,6 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $userPosts = DB::table('posts')->select()->where('user_id', Auth::user()->id)->get();
-
         /* 
         * --seleccionar posts de las cuentas a las que sigue el usuario--
 
@@ -48,8 +46,6 @@ class SiteController extends Controller
 
     public function storePost(Request $request)
     {
-        //dd($request);
-
         $validator = Validator::make($request->all(), [
             'userPost' => 'required|string|max:140'
         ]);
@@ -64,9 +60,6 @@ class SiteController extends Controller
             return redirect()->back()
                 ->withErrors($validator);
         }
-
-
-
         date_default_timezone_set($request->tz);
 
         Post::create([

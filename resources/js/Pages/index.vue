@@ -1,28 +1,14 @@
 <script setup>
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import GuestLayoutVue from '@/Layouts/GuestLayout.vue';
 import UserLayout from '@/Layouts/UserLayout.vue';
 import PublishPostLarge from '../components/Forms/PublishPostLarge.vue'
 import Posts from '../components/Display/Posts.vue'
 import { ref } from 'vue';
 
-import axios from 'axios';
-import TextInput from '@/Components/TextInput.vue';
-import { computed } from 'vue';
-
 const props = defineProps({
     user: Object,
     posts: Array,
-})
-
-
-
-const page = usePage()
-
-console.log(page.props);
-
-const form = useForm({
-    post: ''
 })
 
 let scrollY = ref(window.scrollY);
@@ -39,7 +25,7 @@ function scrollPosition(){
         <section class="hidden bg-red-400 lg:block  lg:w-1/4">
             ssss
         </section>
-        <section class="bg-green-500 lg:w-2/4 mx-4">
+        <section class="bg-gray-200 lg:w-2/4 mx-4">
             <div class="hidden lg:block bg-purple-300">
                 <PublishPostLarge :pic="user.profile_pic"/>
             </div>

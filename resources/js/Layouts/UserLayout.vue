@@ -1,19 +1,15 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
 import { PublishIcon, ArrowUpIcon } from '../components/Icons/_ExportIcons';
 import ModalPublishPost from '@/components/Forms/ModalPublishPost.vue';
 import SearchBarVue from '../components/Actions/SearchBar.vue';
 import AvatarDropdown from '../components/Actions/AvatarDropdown.vue';
 import BottomNavigation from '@/components/Display/BottomNavigation.vue';
 import TopNavigation from '../components/Display/TopNavigation.vue'
-import { ref } from 'vue';
 
 const props = defineProps({
     avatar: String,
     scrollY: Number
 })
-
-const page = usePage()
 
 let screenWidth = window.innerWidth;
 
