@@ -6,28 +6,41 @@ const props = defineProps({
     post: Object
 })
 
+function dateFormatter(options, date) {
+    options = JSON.parse(options)
+    console.log(options);
+    return new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, options).format(date)
+}
+
 function displayDate() {
-    let datePost = new Date(props.post.date);
+    let datePost = new Date(props.post.date + 'T' + props.post.time);
     let today = new Date();
-
-    if(today.toLocaleDateString() > datePost.toLocaleDateString()){
-        return datePost.toLocaleDateString()
-    } 
-    
-    let time = [props.post.time.split(':')[0],props.post.time.split(':')[1],props.post.time.split(':')[2]]
-    let timePost = new Date();
-    timePost.setHours(time[0]);
-    timePost.setMinutes(time[1]);
-    timePost.setSeconds(time[2]);
-
-        // 13                   12
-    if(today.getHours() > timePost.getHours()){
-        return 'Hace ' + (today.getHours() - timePost.getHours()) +' h.'
-    } else if(today.getMinutes() > timePost.getMinutes()){
-        return 'Hace ' + (today.getMinutes() - timePost.getMinutes()) +' mins.'
-    } else{
-        return 'Hace ' + (today.getSeconds() - timePost.getSeconds()) +' segs.'
+    let options = {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
     }
+
+    if (today.getFullYear() > datePost.getFullYear()) {
+
+        return dateFormatter(JSON.stringify({ day: options.day, month: options.month, year: options.year }), datePost)
+    } else if (today.getMonth() > datePost.getMonth()) {
+
+        return dateFormatter(JSON.stringify({ day: options.day, month: options.month }), datePost)
+    } else if (today.getDate() > datePost.getDate()) {
+
+        if ((today.getDate() - datePost.getDate()) < 7) {
+
+            return (today.getDate() - datePost.getDate()) + 'd';
+        } else {
+
+            return dateFormatter(JSON.stringify({ day: options.day, month: options.month }), datePost)
+        }
+    }
+
+    return dateFormatter(JSON.stringify({ hour: options.hour, minute: options.minute }), datePost)
 }
 
 </script>
