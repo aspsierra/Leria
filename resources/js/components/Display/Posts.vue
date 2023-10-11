@@ -8,7 +8,6 @@ const props = defineProps({
 
 function dateFormatter(options, date) {
     options = JSON.parse(options)
-    console.log(options);
     return new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, options).format(date)
 }
 
