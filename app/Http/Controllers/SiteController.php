@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follower;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,7 @@ class SiteController extends Controller
         DB::statement("SET SQL_MODE=''");
 
         $posts = DB::table('posts as p')
-            ->select('p.*' , 'u.user_name', 'u.name', 'u.profile_pic')
+            ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
             ->join('users as u', 'p.user_id', '=', 'u.id')
             ->join('followers as f', 'u.id', '=', 'f.user_id')
             ->where('f.follower_id', Auth::user()->id)
@@ -38,9 +39,25 @@ class SiteController extends Controller
             ->orderBy('p.date', 'desc')
             ->orderBy('p.time', 'desc')
             ->get();
+
+        $nPosts = DB::table('posts')
+            ->where('user_id', Auth::user()->id)
+            ->count('id');
+
+        $nFollowers = DB::table('followers')
+            ->where('user_id', Auth::user()->id)
+            ->count();
+
+        $nFollowing = DB::table('followers')
+            ->where('follower_id', Auth::user()->id)
+            ->count();
+
         return Inertia::render('index', [
             'user' => Auth::user(),
-            'posts' => $posts
+            'posts' => $posts,
+            'nPosts' => $nPosts,
+            'nFollowers' => $nFollowers,
+            'nFollowing' => $nFollowing
         ]);
     }
 
@@ -49,11 +66,11 @@ class SiteController extends Controller
         $validator = Validator::make($request->all(), [
             'userPost' => 'required|string|max:140'
         ]);
-        
 
-        if($validator->fails()){
 
-            if($request->alert){
+        if ($validator->fails()) {
+
+            if ($request->alert) {
                 //$request->session()->flash('Not Valid');
             }
             //$request->session->flash();
@@ -71,7 +88,5 @@ class SiteController extends Controller
         ]);
 
         return redirect()->back();
-
-
     }
 }
