@@ -7,8 +7,7 @@ import BottomNavigation from '@/components/Display/BottomNavigation.vue';
 import TopNavigation from '../components/Display/TopNavigation.vue'
 
 const props = defineProps({
-    avatar: String,
-    scrollY: Number
+    scrollY: Number,
 })
 
 let screenWidth = window.innerWidth;
@@ -30,7 +29,7 @@ window.addEventListener('resize', function () {
         </div>
         <div class="navbar-end">
             <SearchBarVue :placeholder="'Buscar'" class="hidden lg:block" />
-            <AvatarDropdown :avatar="avatar" />
+            <AvatarDropdown />
         </div>
     </div>
     <div v-if="scrollY > 100 || screenWidth < 1024" class='fixed bottom-10 right-10 my-8 float-right px-5 py-2'>

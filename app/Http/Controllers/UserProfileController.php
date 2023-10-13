@@ -11,13 +11,12 @@ use Inertia\Inertia;
 
 class UserProfileController extends Controller
 {
-    public function viewProfile(Request $request, String $id = null)
+    public function viewProfile(Request $request, String $userName = null)
     {
-
-        $user = Auth::user();
-
-        if ($id) {
-            $user = User::select()->find($id);
+        if ($userName) {
+            $user = User::where('user_name', $userName)->first();
+        } else {
+            $user = Auth::user();
         }
 
         $nPosts = DB::table('posts')

@@ -24,7 +24,7 @@ function scrollPosition(){
 </script>
 <template>
     <Head title='Inicio' />
-    <component :is="user === null ? GuestLayoutVue : UserLayout" :avatar="user.profile_pic" :scrollY="scrollY"  class="container mx-auto" />
+    <component :is="user === null ? GuestLayoutVue : UserLayout" :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
         <section class="hidden bg-red-400 lg:block  lg:w-1/4">
             <UserBrievInfo :user="user" :posts="nPosts" :following="nFollowing" :followers="nFollowers"/>

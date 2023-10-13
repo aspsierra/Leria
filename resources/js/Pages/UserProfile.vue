@@ -25,8 +25,6 @@ if (Array.isArray(props.user)) {
     userProfile = props.user[0];
 }
 
-
-
 onBeforeMount(() => {
     axios.get('/test?user=' + userProfile.id)
         .then(function (response) {
@@ -35,6 +33,10 @@ onBeforeMount(() => {
         }
         )
 })
+
+const getShared = () => {
+    axios.get('shared/')
+}
 
 let scrollY = ref(window.scrollY);
 
@@ -62,7 +64,7 @@ function scrollPosition() {
                 <div class="w-full border-b-2">
                     <div class="tabs">
                         <a class="tab tab-lg tab-bordered tab-active">Posts</a>
-                        <a class="tab tab-lg tab-bordered ">Compartidos</a>
+                        <a class="tab tab-lg tab-bordered" @click="getShared">Compartidos</a>
                         <a class="tab tab-lg tab-bordered">Favoritos</a>
                     </div>
                 </div>
