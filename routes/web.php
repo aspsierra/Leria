@@ -23,14 +23,14 @@ Route::redirect('/', 'login');
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [SiteController::class , 'index']);
     Route::post('/publishPost', [SiteController::class, 'storePost']);
+    Route::get('/getAllPosts/{id}', [SiteController::class , 'getAllPosts']);
 
     Route::get('/user/{userName}', [UserProfileController::class, 'viewProfile']);
-    //Route::get('/profile', [UserProfileController::class, 'viewProfile']);
 
     Route::get('/user/{userName}/posts', [UserProfileController::class, 'getOwnPosts']);
     Route::get('/user/{userName}/shares', [UserProfileController::class, 'getSharedPosts']);
     Route::get('/user/{userName}/likes', [UserProfileController::class, 'getLikedPosts']);
-
+    Route::get('/user/{userName}/following', [[UserProfileController::class, 'getFollowing']]);
 });
 
 /*

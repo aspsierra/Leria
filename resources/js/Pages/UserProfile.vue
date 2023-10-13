@@ -73,8 +73,8 @@ function scrollPosition() {
                 </div>
 
                 <!-- POSTS -->
-                <div v-if="foundUserPosts" v-for="post in posts" class="divide divide-y">
-                    <Posts :post="post" />
+                <div v-if="foundUserPosts" v-for="post in posts" >
+                    <Posts :post="post"/>
                 </div>
                 <div v-else-if="foundUserPosts && posts.length <= 0" class="flex flex-col mt-20 items-center">
                     <SearchIcon class="h-1/4 w-1/4" />

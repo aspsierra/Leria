@@ -26,20 +26,7 @@ class SiteController extends Controller
         OR p.user_id = 3
         GROUP BY p.id 
         ORDER BY p.date DESC, p.time DESC
-        */
-
-        DB::statement("SET SQL_MODE=''");
-
-        $posts = DB::table('posts as p')
-            ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
-            ->join('users as u', 'p.user_id', '=', 'u.id')
-            ->join('followers as f', 'u.id', '=', 'f.user_id')
-            ->where('f.follower_id', Auth::user()->id)
-            ->orWhere('p.user_id', Auth::user()->id)
-            ->groupBy('p.id')
-            ->orderBy('p.date', 'desc')
-            ->orderBy('p.time', 'desc')
-            ->get();
+        */ 
 
         $nPosts = DB::table('posts')
             ->where('user_id', Auth::user()->id)
@@ -55,11 +42,28 @@ class SiteController extends Controller
 
         return Inertia::render('index', [
             'user' => Auth::user(),
-            'posts' => $posts,
+            //'posts' => $posts,
             'nPosts' => $nPosts,
             'nFollowers' => $nFollowers,
             'nFollowing' => $nFollowing
         ]);
+    }
+
+    public function getAllPosts(String $id){
+        DB::statement("SET SQL_MODE=''");
+
+        $posts = DB::table('posts as p')
+            ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
+            ->join('users as u', 'p.user_id', '=', 'u.id')
+            ->join('followers as f', 'u.id', '=', 'f.user_id')
+            ->where('f.follower_id', Auth::user()->id)
+            ->orWhere('p.user_id', Auth::user()->id)
+            ->groupBy('p.id')
+            ->orderBy('p.date', 'desc')
+            ->orderBy('p.time', 'desc')
+            ->get();
+
+            return $posts;
     }
 
     public function storePost(Request $request)
