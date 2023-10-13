@@ -73,4 +73,24 @@ class UserProfileController extends Controller
 
         return $posts;
     }
+
+    public function getLikedPosts(Request $request, String $userName)
+    {
+
+        DB::statement("SET SQL_MODE=''");
+
+        $user = User::select('id')->first('user_name', $userName);
+
+        $posts = DB::table('posts as p')
+            ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
+            ->join('likes as l', 'p.id', '=', 'l.post_id')
+            ->join('users as u', 'p.user_id', '=', 'u.id')
+            ->where('l.user_id', $user->id)
+            ->groupBy('p.id')
+            ->orderBy('p.date', 'desc')
+            ->orderBy('p.time', 'desc')
+            ->get();
+
+        return $posts;
+    }
 }

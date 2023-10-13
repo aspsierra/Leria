@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/user/{userName}/posts', [UserProfileController::class, 'getOwnPosts']);
     Route::get('/user/{userName}/shares', [UserProfileController::class, 'getSharedPosts']);
+    Route::get('/user/{userName}/likes', [UserProfileController::class, 'getLikedPosts']);
 
 });
 

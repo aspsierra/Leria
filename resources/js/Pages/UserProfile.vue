@@ -1,10 +1,10 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { SearchIcon } from '../components/Icons/_ExportIcons.js'
+import { Head } from '@inertiajs/vue3';
 import UserLayout from '@/Layouts/UserLayout.vue';
 import Posts from '../components/Display/Posts.vue'
 import UserInfoLarge from '@/components/Display/UserInfoLarge.vue';
 
-import { SearchIcon } from '../components/Icons/_ExportIcons.js'
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
 import axios from 'axios';
@@ -26,35 +26,20 @@ if (Array.isArray(props.user)) {
     userProfile = props.user[0];
 }
 
-onBeforeMount(() => {
-    axios.get('/user/' + userProfile.user_name + '/posts')
-        .then(function (response) {
-            posts = response.data
-            foundUserPosts.value = true
-        }
-        )
-})
 
-const getPosts = () => {
+const getPosts = (link = 'posts', clickTab = 'P') => {
     foundUserPosts.value = false
-    tab.value = 'P'
-    axios.get('/user/' + userProfile.user_name + '/posts')
-        .then(function (response) {
+    tab.value = clickTab
+    axios.get('/user/' + userProfile.user_name + '/' + link)
+    .then(function (response) {
             posts = response.data
             foundUserPosts.value = true
         })
 }
 
-const getShared = () => {
-    foundUserPosts.value = false
-    tab.value = 'S'
-    axios.get('/user/' + userProfile.user_name + '/shares')
-    .then(function (response){
-        posts = response.data
-        foundUserPosts.value = true
-    })
-}
-
+onBeforeMount(() => {
+    getPosts();
+})
 let scrollY = ref(window.scrollY);
 
 function scrollPosition() {
@@ -81,9 +66,9 @@ function scrollPosition() {
             <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
                 <div class="w-full border-b-2">
                     <div class="tabs">
-                        <Link @click="getPosts" :class="tab == 'P' ? 'tab-active' : ''" class="tab tab-lg tab-bordered tab-active">Posts</Link>
-                        <a :class="tab == 'S' ? 'tab-active' : ''" class="tab tab-lg tab-bordered" @click="getShared">Compartidos</a>
-                        <a class="tab tab-lg tab-bordered">Favoritos</a>
+                        <a @click="getPosts()" :class="tab == 'P' ? 'tab-active' : ''" class="tab tab-lg tab-bordered">Posts</a>
+                        <a @click="getPosts('shares', 'S')" :class="tab == 'S' ? 'tab-active' : ''" class="tab tab-lg tab-bordered">Compartidos</a>
+                        <a @click="getPosts('likes', 'L')" :class="tab == 'L' ? 'tab-active' : ''" class="tab tab-lg tab-bordered">Favoritos</a>
                     </div>
                 </div>
 
