@@ -91,44 +91,17 @@ class SiteController extends Controller
         return redirect()->back();
     }
 
+    public function test(Request $request){
 
-    public function viewProfile(Request $request)
-    {
+        $posts = DB::table('posts as p')
+        ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
+        ->join('users as u', 'p.user_id', '=', 'u.id')
+        ->where('p.user_id', $request->user)
+        ->orderBy('p.date', 'desc')
+        ->orderBy('p.time', 'desc')
+        ->get();
 
-        //dd($request->user);
-
-        $user = Auth::user();
-        
-        if($request->user){
-            //$user = DB::table('users')->find($request->user);
-            $user = User::select()->find($request->user);
-            //dd($user);
-        }
-
-        $nPosts = DB::table('posts')
-            ->where('user_id', $user->id)
-            ->count('id');
-
-        $nFollowers = DB::table('followers')
-            ->where('user_id', $user->id)
-            ->count();
-
-        $nFollowing = DB::table('followers')
-            ->where('follower_id', $user->id)
-            ->count();
-
-        if ($request->user) {
-            $user = DB::table('users')
-                ->select()
-                ->where('id', $request->user)
-                ->get();
-        }
-
-        return Inertia::render('UserProfile',[
-            'user' => $user,
-            'nPosts' => $nPosts,
-            'nFollowers' => $nFollowers,
-            'nFollowing' => $nFollowing
-        ]);
+        return $posts;
     }
+
 }

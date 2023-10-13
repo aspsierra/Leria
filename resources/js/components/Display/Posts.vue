@@ -2,7 +2,6 @@
 import { LikeIcon, CommentIcon, ShareIcon } from '../Icons/_ExportIcons';
 import { Link } from '@inertiajs/vue3';
 
-
 const props = defineProps({
     post: Object
 })

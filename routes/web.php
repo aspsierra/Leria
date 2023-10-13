@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,7 +23,9 @@ Route::redirect('/', 'login');
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [SiteController::class , 'index']);
     Route::post('/publishPost', [SiteController::class, 'storePost']);
-    Route::get('/profile', [SiteController::class, 'viewProfile']);
+    Route::get('/profile', [UserProfileController::class, 'viewProfile']);
+
+    Route::get('/test', [SiteController::class, 'test']);
 });
 
 /*

@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
+
+class UserProfileController extends Controller
+{
+    public function viewProfile(Request $request)
+    {
+
+        $user = Auth::user();
+
+        if ($request->user) {
+            $user = User::select()->find($request->user);
+        }
+
+        $nPosts = DB::table('posts')
+            ->where('user_id', $user->id)
+            ->count('id');
+
+        $nFollowers = DB::table('followers')
+            ->where('user_id', $user->id)
+            ->count();
+
+        $nFollowing = DB::table('followers')
+            ->where('follower_id', $user->id)
+            ->count();
+
+        // $posts = DB::table('posts as p')
+        //     ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
+        //     ->join('users as u', 'p.user_id', '=', 'u.id')
+        //     ->where('p.user_id', $user->id)
+        //     ->orderBy('p.date', 'desc')
+        //     ->orderBy('p.time', 'desc')
+        //     ->get();
+
+        return Inertia::render('UserProfile', [
+            'user' => $user,
+            'nPosts' => $nPosts,
+            'nFollowers' => $nFollowers,
+            'nFollowing' => $nFollowing,
+            'posts' => []
+        ]);
+    }
+}
