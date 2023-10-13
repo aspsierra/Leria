@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import UserLayout from '@/Layouts/UserLayout.vue';
 import Posts from '../components/Display/Posts.vue'
 import UserInfoLarge from '@/components/Display/UserInfoLarge.vue';
@@ -17,6 +17,7 @@ const props = defineProps({
 })
 
 let posts = []
+let tab = ref('P')
 let foundUserPosts = ref(false)
 
 let userProfile = props.user;
@@ -26,7 +27,7 @@ if (Array.isArray(props.user)) {
 }
 
 onBeforeMount(() => {
-    axios.get('/test?user=' + userProfile.id)
+    axios.get('/user/' + userProfile.user_name + '/posts')
         .then(function (response) {
             posts = response.data
             foundUserPosts.value = true
@@ -34,8 +35,24 @@ onBeforeMount(() => {
         )
 })
 
+const getPosts = () => {
+    foundUserPosts.value = false
+    tab.value = 'P'
+    axios.get('/user/' + userProfile.user_name + '/posts')
+        .then(function (response) {
+            posts = response.data
+            foundUserPosts.value = true
+        })
+}
+
 const getShared = () => {
-    axios.get('shared/')
+    foundUserPosts.value = false
+    tab.value = 'S'
+    axios.get('/user/' + userProfile.user_name + '/shares')
+    .then(function (response){
+        posts = response.data
+        foundUserPosts.value = true
+    })
 }
 
 let scrollY = ref(window.scrollY);
@@ -47,7 +64,7 @@ function scrollPosition() {
 </script>
 
 <template>
-    <Head :title = "userProfile.name +' - '+ userProfile.user_name" />
+    <Head :title="userProfile.name + ' - ' + userProfile.user_name" />
     <UserLayout :avatar="userProfile.profile_pic" :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto" @wheel="scrollPosition()">
         <div class="bg-indigo-300">
@@ -56,19 +73,20 @@ function scrollPosition() {
         <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
             <!-- USER INFO -->
             <section class="lg:block pl-5 lg:w-1/4">
-                <UserInfoLarge :userProfile="userProfile" :nPosts="nPosts" :nFollowers="nFollowers" :nFollowing="nFollowing"/>
+                <UserInfoLarge :userProfile="userProfile" :nPosts="nPosts" :nFollowers="nFollowers"
+                    :nFollowing="nFollowing" />
             </section>
 
             <!-- CONTENT -->
             <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
                 <div class="w-full border-b-2">
                     <div class="tabs">
-                        <a class="tab tab-lg tab-bordered tab-active">Posts</a>
-                        <a class="tab tab-lg tab-bordered" @click="getShared">Compartidos</a>
+                        <Link @click="getPosts" :class="tab == 'P' ? 'tab-active' : ''" class="tab tab-lg tab-bordered tab-active">Posts</Link>
+                        <a :class="tab == 'S' ? 'tab-active' : ''" class="tab tab-lg tab-bordered" @click="getShared">Compartidos</a>
                         <a class="tab tab-lg tab-bordered">Favoritos</a>
                     </div>
                 </div>
-                          
+
                 <!-- POSTS -->
                 <div v-if="foundUserPosts" v-for="post in posts" class="divide divide-y">
                     <Posts :post="post" />

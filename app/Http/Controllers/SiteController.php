@@ -91,17 +91,4 @@ class SiteController extends Controller
         return redirect()->back();
     }
 
-    public function test(Request $request){
-
-        $posts = DB::table('posts as p')
-        ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
-        ->join('users as u', 'p.user_id', '=', 'u.id')
-        ->where('p.user_id', $request->user)
-        ->orderBy('p.date', 'desc')
-        ->orderBy('p.time', 'desc')
-        ->get();
-
-        return $posts;
-    }
-
 }

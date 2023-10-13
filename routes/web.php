@@ -27,7 +27,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/user/{userName}', [UserProfileController::class, 'viewProfile']);
     //Route::get('/profile', [UserProfileController::class, 'viewProfile']);
 
-    Route::get('/test', [SiteController::class, 'test']);
+    Route::get('/user/{userName}/posts', [UserProfileController::class, 'getOwnPosts']);
+    Route::get('/user/{userName}/shares', [UserProfileController::class, 'getSharedPosts']);
+
 });
 
 /*
