@@ -1,14 +1,13 @@
 <script setup>
+import { Head } from '@inertiajs/vue3';
 import UserLayout from '@/Layouts/UserLayout.vue';
 import Posts from '../components/Display/Posts.vue'
+import UserInfoLarge from '@/components/Display/UserInfoLarge.vue';
 
-import { AtIcon, MailIcon, CalendarIcon, SearchIcon } from '../components/Icons/_ExportIcons.js'
-import { onMounted, onBeforeMount } from 'vue';
+import { SearchIcon } from '../components/Icons/_ExportIcons.js'
+import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
-import { defineAsyncComponent } from 'vue';
 import axios from 'axios';
-
-//const Posts = defineAsyncComponent(() => import('../components/Display/Posts.vue'))
 
 const props = defineProps({
     user: Object,
@@ -20,18 +19,13 @@ const props = defineProps({
 let posts = []
 let foundUserPosts = ref(false)
 
-const cont = ref();
-
 let userProfile = props.user;
 
 if (Array.isArray(props.user)) {
     userProfile = props.user[0];
 }
 
-let joinDate = new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
-    month: 'long',
-    year: 'numeric'
-}).format(new Date(userProfile.register_date));
+
 
 onBeforeMount(() => {
     axios.get('/test?user=' + userProfile.id)
@@ -42,48 +36,38 @@ onBeforeMount(() => {
         )
 })
 
+let scrollY = ref(window.scrollY);
+
+function scrollPosition() {
+    scrollY.value = window.scrollY;
+}
+
 </script>
 
 <template>
+    <Head :title = "userProfile.name +' - '+ userProfile.user_name" />
     <UserLayout :avatar="userProfile.profile_pic" :scrollY="scrollY" class="container mx-auto" />
-    <div class="container mx-auto">
+    <div class="container mx-auto" @wheel="scrollPosition()">
         <div class="bg-indigo-300">
             <img class="object-cover h-40 w-full" src="/storage/default_background.jpg" alt="">
         </div>
         <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
+            <!-- USER INFO -->
             <section class="lg:block pl-5 lg:w-1/4">
-                <header class="">
-                    <div class="-mt-32 relative">
-                        <div class="top-0 left-0 rounded-full w-40 h-40 ring-4 ring-gray-800 bg-gray-800"></div>
-                        <img class="absolute top-0 left-0 w-40 z-40 rounded-full"
-                            :src="'/storage/' + userProfile.profile_pic" />
-                    </div>
-                </header>
-
-                <body class="py-3 mt-2 border rounded-lg  pl-5">
-                    <h4 class="text-lg font-bold">{{ userProfile.name }}</h4>
-                    <h4 class="flex gap-2">
-                        <AtIcon />{{ userProfile.user_name }}
-                    </h4>
-                    <p class="flex gap-2">
-                        <MailIcon /> {{ userProfile.email }}
-                    </p>
-                    <p class="flex gap-2">
-                        <CalendarIcon /> Se unió en {{ joinDate }}
-                    </p>
-                    <p>{{ nFollowers }} Seguidores</p>
-                    <p>{{ nFollowing }} Siguiendo</p>
-                </body>
+                <UserInfoLarge :userProfile="userProfile" :nPosts="nPosts" :nFollowers="nFollowers" :nFollowing="nFollowing"/>
             </section>
 
+            <!-- CONTENT -->
             <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
-                <div class="w-full">
+                <div class="w-full border-b-2">
                     <div class="tabs">
                         <a class="tab tab-lg tab-bordered tab-active">Posts</a>
                         <a class="tab tab-lg tab-bordered ">Compartidos</a>
                         <a class="tab tab-lg tab-bordered">Favoritos</a>
                     </div>
                 </div>
+                          
+                <!-- POSTS -->
                 <div v-if="foundUserPosts" v-for="post in posts" class="divide divide-y">
                     <Posts :post="post" />
                 </div>
