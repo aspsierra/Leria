@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Follower;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -94,18 +95,26 @@ class SiteController extends Controller
     public function viewProfile(Request $request)
     {
 
+        //dd($request->user);
+
         $user = Auth::user();
+        
+        if($request->user){
+            //$user = DB::table('users')->find($request->user);
+            $user = User::select()->find($request->user);
+            //dd($user);
+        }
 
         $nPosts = DB::table('posts')
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id', $user->id)
             ->count('id');
 
         $nFollowers = DB::table('followers')
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id', $user->id)
             ->count();
 
         $nFollowing = DB::table('followers')
-            ->where('follower_id', Auth::user()->id)
+            ->where('follower_id', $user->id)
             ->count();
 
         if ($request->user) {
