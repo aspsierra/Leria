@@ -11,13 +11,13 @@ use Inertia\Inertia;
 
 class UserProfileController extends Controller
 {
-    public function viewProfile(Request $request)
+    public function viewProfile(Request $request, String $id = null)
     {
 
         $user = Auth::user();
 
-        if ($request->user) {
-            $user = User::select()->find($request->user);
+        if ($id) {
+            $user = User::select()->find($id);
         }
 
         $nPosts = DB::table('posts')
@@ -31,14 +31,6 @@ class UserProfileController extends Controller
         $nFollowing = DB::table('followers')
             ->where('follower_id', $user->id)
             ->count();
-
-        // $posts = DB::table('posts as p')
-        //     ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
-        //     ->join('users as u', 'p.user_id', '=', 'u.id')
-        //     ->where('p.user_id', $user->id)
-        //     ->orderBy('p.date', 'desc')
-        //     ->orderBy('p.time', 'desc')
-        //     ->get();
 
         return Inertia::render('UserProfile', [
             'user' => $user,
