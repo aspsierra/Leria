@@ -42,7 +42,6 @@ onBeforeMount(() => {
         )
 })
 
-
 </script>
 
 <template>
@@ -50,13 +49,6 @@ onBeforeMount(() => {
     <div class="container mx-auto">
         <div class="bg-indigo-300">
             <img class="object-cover h-40 w-full" src="/storage/default_background.jpg" alt="">
-        </div>
-        <div class="flex w-full justify-evenly ">
-            <div class="tabs lg:w-2/4">
-                <a class="tab tab-lg tab-bordered tab-active">Posts</a>
-                <a class="tab tab-lg tab-bordered ">Compartidos</a>
-                <a class="tab tab-lg tab-bordered">Favoritos</a>
-            </div>
         </div>
         <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
             <section class="lg:block pl-5 lg:w-1/4">
@@ -85,10 +77,17 @@ onBeforeMount(() => {
             </section>
 
             <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
+                <div class="w-full">
+                    <div class="tabs">
+                        <a class="tab tab-lg tab-bordered tab-active">Posts</a>
+                        <a class="tab tab-lg tab-bordered ">Compartidos</a>
+                        <a class="tab tab-lg tab-bordered">Favoritos</a>
+                    </div>
+                </div>
                 <div v-if="foundUserPosts" v-for="post in posts" class="divide divide-y">
                     <Posts :post="post" />
                 </div>
-                <div v-else-if="foundUserPosts && posts.length <= 0 "  class="flex flex-col mt-20 items-center">
+                <div v-else-if="foundUserPosts && posts.length <= 0" class="flex flex-col mt-20 items-center">
                     <SearchIcon class="h-1/4 w-1/4" />
                     <p class="text-lg">No se han encontrado posts</p>
                 </div>
