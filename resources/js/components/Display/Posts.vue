@@ -6,20 +6,24 @@ import { ref, onBeforeMount } from 'vue';
 
 const props = defineProps({
     post: Object,
-    shared: Array
+    shared: Array,
+    likes: Array
 })
 
 let postShared = ref(false)
-//let liked = ref(false);
-//let shared = ref(false);
+let postLiked = ref(false);
 
 for (const share of props.shared) {
-    //console.log(share.post_id == props.post.id);
     if(share.post_id == props.post.id){
         postShared.value = true
     }   
 }
-console.log(postShared.value);
+
+for (const like of props.likes) {
+    if(like.post_id == props.post.id){
+        postLiked.value = true
+    }   
+}
 
 function dateFormatter(options, date) {
     options = JSON.parse(options)
@@ -92,8 +96,8 @@ function displayDate() {
                     {{ post.n_shared }}
                 </span>
 
-                <span class="flex gap-4 hover:text-yellow-500 ">
-                    <LikeIcon class="hover:scale-110 transition-all duration-300" 
+                <span class="flex gap-4 hover:text-yellow-500 " :class="postLiked == true ? 'text-yellow-500' : ''">
+                    <LikeIcon :class="postLiked == true ? 'stroke-yellow-500' : ''" class="hover:scale-110 transition-all duration-300" 
                     />
                     {{ post.n_likes }}
                 </span>

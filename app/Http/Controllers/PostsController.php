@@ -28,7 +28,8 @@ class PostsController extends Controller
 
         return [
             'posts' => $posts,
-            'shares' => $this->checkShared($posts)
+            'shares' => $this->checkPostType($posts, 'shares'),
+            'likes' => $this->checkPostType($posts, 'likes')
         ];
     }
 
@@ -45,7 +46,8 @@ class PostsController extends Controller
 
         return [
             'posts' => $posts,
-            'shares' => $this->checkShared($posts)
+            'shares' => $this->checkPostType($posts, 'shares'),
+            'likes' => $this->checkPostType($posts, 'likes')
         ];
     }
 
@@ -64,13 +66,14 @@ class PostsController extends Controller
 
         return [
             'posts' => $posts,
-            'shares' => $this->checkShared($posts)
+            'shares' => $this->checkPostType($posts, 'shares'),
+            'likes' => $this->checkPostType($posts, 'likes')
         ];
     }
 
     public function getLikedPosts(Request $request, String $userName)
     {
-        $user = User::select('id')->first('user_name', $userName);
+        $user = User::select('id')->where('user_name', $userName)->first();
 
         $posts = DB::table('posts as p')
             ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
@@ -83,18 +86,19 @@ class PostsController extends Controller
 
         return [
             'posts' => $posts,
-            'shares' => $this->checkShared($posts)
+            'shares' => $this->checkPostType($posts, 'shares'),
+            'likes' => $this->checkPostType($posts, 'likes')
         ];
     }
 
-    public function checkShared($posts)
+    public function checkPostType($posts, $type)
     {
         $shares = [];
         $users = [];
-        foreach ($posts as $key => $post) {
-            $users[] = DB::table('shares')->select('user_id', 'post_id')->where('post_id', $post->id)->get();
+        foreach ($posts as $post) {
+            $users[] = DB::table($type)->select('user_id', 'post_id')->where('post_id', $post->id)->get();
         }
-        foreach ($users as $key => $user) {
+        foreach ($users as $user) {
             if(count($user) > 0){
                 foreach($user as $item){
                     if($item->user_id == Auth::user()->id){

@@ -46,7 +46,7 @@ onBeforeMount(() => {
 
 
             <div v-if="foundUserPosts" v-for="post in posts.posts">
-                <Posts :post="post" :shared="posts.shares" />
+                <Posts :post="post" :shared="posts.shares" :likes="posts.likes"/>
             </div>
             <div v-else-if="foundUserPosts && posts.length <= 0" class="flex flex-col mt-20 items-center">
                 <SearchIcon class="h-1/4 w-1/4" />
