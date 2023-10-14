@@ -9,6 +9,7 @@ import ArrowUpIcon from './ArrowUpIcon.vue';
 import AtIcon from './AtIcon.vue';
 import MailIcon from './MailIcon.vue';
 import CalendarIcon from './CalendarIcon.vue';
+import LocationIcon from './LocationIcon.vue'
 
 export {
     BellIcon,
@@ -22,4 +23,5 @@ export {
     AtIcon,
     MailIcon,
     CalendarIcon,
+    LocationIcon
 }
