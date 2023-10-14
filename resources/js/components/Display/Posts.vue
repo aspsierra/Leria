@@ -1,10 +1,25 @@
 <script setup>
 import { LikeIcon, CommentIcon, ShareIcon } from '../Icons/_ExportIcons';
 import { Link } from '@inertiajs/vue3';
+import { ref, onBeforeMount } from 'vue';
+
 
 const props = defineProps({
-    post: Object
+    post: Object,
+    shared: Array
 })
+
+let postShared = ref(false)
+//let liked = ref(false);
+//let shared = ref(false);
+
+for (const share of props.shared) {
+    //console.log(share.post_id == props.post.id);
+    if(share.post_id == props.post.id){
+        postShared.value = true
+    }   
+}
+console.log(postShared.value);
 
 function dateFormatter(options, date) {
     options = JSON.parse(options)
@@ -48,12 +63,12 @@ function displayDate() {
 <template >
     <div class="my-4 mx-2 flex gap-3">
         <Link :href="'/user/' + post.user_name">
-        
-            <div class="avatar">
-                <div class="w-10 h-10 rounded-full">
-                    <img :src="'/storage/' + post.profile_pic" alt="Tailwind-CSS-Avatar-component" />
-                </div>
+
+        <div class="avatar">
+            <div class="w-10 h-10 rounded-full">
+                <img :src="'/storage/' + post.profile_pic" alt="Tailwind-CSS-Avatar-component" />
             </div>
+        </div>
         </Link>
 
         <div class="w-full">
@@ -66,18 +81,20 @@ function displayDate() {
                 <p>{{ post.message }}</p>
             </body>
 
-            <footer class="flex justify-evenly mt-2">
-                <span class="flex gap-4">
-                    <CommentIcon class="hover:scale-110 hover:text-purple-500 transition-all duration-300" />
+            <footer class="flex justify-evenly mt-2 ">
+                <span class="flex gap-4 hover:text-purple-500">
+                    <CommentIcon class="hover:scale-110  transition-all duration-300" />
                     {{ post.n_comments }}
                 </span>
-                <span class="flex gap-4">
-                    <ShareIcon class="hover:scale-110 hover:text-green-500 transition-all duration-300" />
+                <span class="flex gap-4 hover:text-green-500" :class="postShared == true ? 'text-green-500' : ''">
+                    <ShareIcon :class="postShared == true ? 'stroke-green-500' : ''" class="hover:scale-110  transition-transform duration-300" 
+                    />
                     {{ post.n_shared }}
                 </span>
 
-                <span class="flex gap-4">
-                    <LikeIcon class="hover:scale-110 hover:text-yellow-500 transition-all duration-300" />
+                <span class="flex gap-4 hover:text-yellow-500 ">
+                    <LikeIcon class="hover:scale-110 transition-all duration-300" 
+                    />
                     {{ post.n_likes }}
                 </span>
 

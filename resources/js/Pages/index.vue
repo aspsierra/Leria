@@ -9,7 +9,6 @@ import { ref, onBeforeMount } from 'vue';
 
 const props = defineProps({
     user: Object,
-    posts: Array,
     nPosts: Number,
     nFollowers: Number,
     nFollowing: Number,
@@ -46,8 +45,8 @@ onBeforeMount(() => {
             </div>
 
 
-            <div v-if="foundUserPosts" v-for="post in posts">
-                <Posts :post="post" />
+            <div v-if="foundUserPosts" v-for="post in posts.posts">
+                <Posts :post="post" :shared="posts.shares" />
             </div>
             <div v-else-if="foundUserPosts && posts.length <= 0" class="flex flex-col mt-20 items-center">
                 <SearchIcon class="h-1/4 w-1/4" />

@@ -27,6 +27,7 @@ if (Array.isArray(props.user)) {
 }
 
 
+
 const getPosts = (link = 'posts', clickTab = 'P') => {
     foundUserPosts.value = false
     tab.value = clickTab
@@ -50,7 +51,7 @@ function scrollPosition() {
 
 <template>
     <Head :title="userProfile.name + ' - ' + userProfile.user_name" />
-    <UserLayout :avatar="userProfile.profile_pic" :scrollY="scrollY" class="container mx-auto" />
+    <UserLayout :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto" @wheel="scrollPosition()">
         <div class="bg-indigo-300">
             <img class="object-cover h-40 w-full" src="/storage/default_background.jpg" alt="">
@@ -58,10 +59,10 @@ function scrollPosition() {
         <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
             <!-- USER INFO -->
             <section class="lg:block pl-5 lg:w-1/4">
+                
                 <UserInfoLarge :userProfile="userProfile" :nPosts="nPosts" :nFollowers="nFollowers"
                     :nFollowing="nFollowing" />
             </section>
-
             <!-- CONTENT -->
             <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
                 <div class="w-full border-b-2">
@@ -73,8 +74,8 @@ function scrollPosition() {
                 </div>
 
                 <!-- POSTS -->
-                <div v-if="foundUserPosts" v-for="post in posts" >
-                    <Posts :post="post"/>
+                <div v-if="foundUserPosts" v-for="post in posts.posts" >
+                    <Posts :post="post" :shared="posts.shares"/>
                 </div>
                 <div v-else-if="foundUserPosts && posts.length <= 0" class="flex flex-col mt-20 items-center">
                     <SearchIcon class="h-1/4 w-1/4" />
