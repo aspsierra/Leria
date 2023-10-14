@@ -58,7 +58,7 @@ function scrollPosition() {
         </div>
         <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
             <!-- USER INFO -->
-            <section class="lg:block pl-5 lg:w-1/4">
+            <section class="lg:block px-5 lg:w-1/4">
                 
                 <UserInfoLarge :userProfile="userProfile" :nPosts="nPosts" :nFollowers="nFollowers"
                     :nFollowing="nFollowing" />
@@ -67,9 +67,9 @@ function scrollPosition() {
             <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
                 <div class="w-full border-b-2">
                     <div class="tabs">
-                        <a @click="getPosts()" :class="tab == 'P' ? 'tab-active' : ''" class="tab tab-lg tab-bordered">Posts</a>
-                        <a @click="getPosts('shares', 'S')" :class="tab == 'S' ? 'tab-active' : ''" class="tab tab-lg tab-bordered">Compartidos</a>
-                        <a @click="getPosts('likes', 'L')" :class="tab == 'L' ? 'tab-active' : ''" class="tab tab-lg tab-bordered">Favoritos</a>
+                        <a @click="getPosts()" :class="tab == 'P' ? 'tab-active' : ''" class="tab lg:tab-lg tab-bordered">Posts</a>
+                        <a @click="getPosts('shares', 'S')" :class="tab == 'S' ? 'tab-active' : ''" class="tab lg:tab-lg tab-bordered">Compartidos</a>
+                        <a @click="getPosts('likes', 'L')" :class="tab == 'L' ? 'tab-active' : ''" class="tab lg:tab-lg tab-bordered">Favoritos</a>
                     </div>
                 </div>
 

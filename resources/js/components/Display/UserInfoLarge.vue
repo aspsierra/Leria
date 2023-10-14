@@ -16,33 +16,33 @@ let joinDate = new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().l
 
 </script>
 <template>
-    <header class="-mt-32 relative">
-        <div class="top-0 left-0 rounded-full w-40 h-40 ring-4 ring-gray-800 bg-gray-800"></div>
-        <img class="absolute top-0 left-0 w-40 z-40 rounded-full" :src="'/storage/' + userProfile.profile_pic" />
+    <header class="-mt-20 lg:-mt-32 relative">
+        <div class="top-0 left-0 rounded-full w-20 h-20 lg:w-40 lg:h-40 ring-4 ring-gray-800 bg-gray-800"></div>
+        <img class="absolute top-0 left-0 w-20 lg:w-40 z-40 rounded-full" :src="'/storage/' + userProfile.profile_pic" />
     </header>
 
-    <body class="py-3 my-2 border rounded-lg pl-5">
+    <body class="py-3 my-2 border rounded-lg px-5 text-sm lg:text-md">
         <div class="mb-3">
             <h4 class="text-lg font-bold">{{ userProfile.name }}</h4>
             <h4 class="flex gap-2">
-                <AtIcon />{{ userProfile.user_name }}
+                @ {{ userProfile.user_name }}
             </h4>
         </div>
         <p class="mb-3">
             {{ userProfile.bio }}
         </p>
-        <div class="mb-3 flex flex-col gap-1">
-            <p class="flex gap-2">
+        <div class="mb-3 flex lg:flex-col flex-row gap-1 flex-wrap">
+            <p class="flex gap-1 lg:gap-2">
                 <MailIcon /> {{ userProfile.email }}
             </p>
-            <p class="flex gap-2">
+            <p class="flex gap-1  lg:gap-2">
                 <LocationIcon /> {{ userProfile.location }}
             </p>
-            <p class="flex gap-2">
+            <p class="flex gap-1 lg:gap-2">
                 <CalendarIcon /> Se unió en {{ joinDate }}
             </p>
         </div>    
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-row justify-between lg:flex-col lg:gap-1">
             <p>{{ nPosts }} Posts</p>
             <p>{{ nFollowers }} Seguidores</p>
             <p>{{ nFollowing }} Siguiendo</p>
