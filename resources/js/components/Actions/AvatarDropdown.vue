@@ -2,6 +2,8 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
+import ThemeToggle from './ThemeToggle.vue'
+
 const page = usePage();
 
 const user = computed(() => page.props.auth.user)
@@ -21,6 +23,7 @@ const user = computed(() => page.props.auth.user)
         </li>
         <li><a>Settings</a></li>
         <li><Link method="post" href="/logout">Cerrar sesión</Link></li>
+        <li><ThemeToggle class=""/> </li>
       </ul>
     </div>
 </template>

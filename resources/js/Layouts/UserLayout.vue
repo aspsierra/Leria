@@ -5,7 +5,6 @@ import SearchBarVue from '../components/Actions/SearchBar.vue';
 import AvatarDropdown from '../components/Actions/AvatarDropdown.vue';
 import BottomNavigation from '@/components/Display/BottomNavigation.vue';
 import TopNavigation from '../components/Display/TopNavigation.vue'
-import ThemeToggle from '../components/Actions/ThemeToggle.vue'
 
 const props = defineProps({
     scrollY: Number,
@@ -29,7 +28,6 @@ window.addEventListener('resize', function () {
             <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
         </div>
         <div class="navbar-end">
-            <ThemeToggle/>
             <SearchBarVue :placeholder="'Buscar'" class="hidden lg:block" />
             <AvatarDropdown />
         </div>
