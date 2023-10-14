@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserProfileController;
@@ -23,13 +24,17 @@ Route::redirect('/', 'login');
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [SiteController::class , 'index']);
     Route::post('/publishPost', [SiteController::class, 'storePost']);
-    Route::get('/getAllPosts/{id}', [SiteController::class , 'getAllPosts']);
+    Route::get('/getAllPosts/{id}', [PostsController::class , 'getAllPosts']);
+
+    Route::get('/checkShared', [SiteController::class , 'checkShared']);
+    Route::get('/checkLiked', [SiteController::class , 'checkLiked']);
+    
 
     Route::get('/user/{userName}', [UserProfileController::class, 'viewProfile']);
 
-    Route::get('/user/{userName}/posts', [UserProfileController::class, 'getOwnPosts']);
-    Route::get('/user/{userName}/shares', [UserProfileController::class, 'getSharedPosts']);
-    Route::get('/user/{userName}/likes', [UserProfileController::class, 'getLikedPosts']);
+    Route::get('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
+    Route::get('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
+    Route::get('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
     Route::get('/user/{userName}/following', [[UserProfileController::class, 'getFollowing']]);
 });
 

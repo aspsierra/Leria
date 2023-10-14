@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Follower;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+
+use function Laravel\Prompts\select;
 
 class SiteController extends Controller
 {
@@ -26,7 +29,7 @@ class SiteController extends Controller
         OR p.user_id = 3
         GROUP BY p.id 
         ORDER BY p.date DESC, p.time DESC
-        */ 
+        */
 
         $nPosts = DB::table('posts')
             ->where('user_id', Auth::user()->id)
@@ -49,22 +52,7 @@ class SiteController extends Controller
         ]);
     }
 
-    public function getAllPosts(String $id){
-        DB::statement("SET SQL_MODE=''");
 
-        $posts = DB::table('posts as p')
-            ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
-            ->join('users as u', 'p.user_id', '=', 'u.id')
-            ->join('followers as f', 'u.id', '=', 'f.user_id')
-            ->where('f.follower_id', Auth::user()->id)
-            ->orWhere('p.user_id', Auth::user()->id)
-            ->groupBy('p.id')
-            ->orderBy('p.date', 'desc')
-            ->orderBy('p.time', 'desc')
-            ->get();
-
-            return $posts;
-    }
 
     public function storePost(Request $request)
     {
@@ -94,5 +82,4 @@ class SiteController extends Controller
 
         return redirect()->back();
     }
-
 }
