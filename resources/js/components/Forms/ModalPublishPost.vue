@@ -1,11 +1,12 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import InputError from '@/Components/InputError.vue';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+//import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 
-const props = defineProps({
-    pic: String,
-})
+const page = usePage();
+
+const user = computed(() => page.props.auth.user)
 
 const form = useForm({
     userPost: ''
@@ -23,7 +24,7 @@ const submit = () => {
                 <div class="w-full">
                     <div class="avatar">
                         <div class="w-10 h-10 rounded-full">
-                            <img :src="'/storage/' + pic" />
+                            <img :src="'/storage/' + user.profile_pic" />
                         </div>
                     </div>
                     <div class="w-full">
