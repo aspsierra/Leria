@@ -64,7 +64,7 @@ function scrollPosition() {
                     :nFollowing="nFollowing" />
             </section>
             <!-- CONTENT -->
-            <section class="bg-gray-700 min-h-screen lg:w-2/4 mx-4">
+            <section class=" min-h-screen lg:w-2/4 mx-4">
                 <div class="w-full border-b-2">
                     <div class="tabs">
                         <a @click="getPosts()" :class="tab == 'P' ? 'tab-active' : ''" class="tab lg:tab-lg tab-bordered">Posts</a>

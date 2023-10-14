@@ -17,7 +17,7 @@ let joinDate = new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().l
 </script>
 <template>
     <header class="-mt-20 lg:-mt-32 relative">
-        <div class="top-0 left-0 rounded-full w-20 h-20 lg:w-40 lg:h-40 ring-4 ring-gray-800 bg-gray-800"></div>
+        <div class="top-0 left-0 rounded-full w-20 h-20 lg:w-40 lg:h-40 ring-4  "></div>
         <img class="absolute top-0 left-0 w-20 lg:w-40 z-40 rounded-full" :src="'/storage/' + userProfile.profile_pic" />
     </header>
 

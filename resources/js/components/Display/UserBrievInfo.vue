@@ -12,10 +12,10 @@ const props = defineProps({
     <div class="bg-indigo-300">
         <img class="object-cover h-36 w-full" src="/storage/default_background.jpg" alt="">
     </div>
-    <div class=" bg-gray-800 pb-4" >
+    <div class="  pb-4" >
         <header class="flex gap-2 ml-5">
             <div class="-mt-8 relative">
-                <div class="top-0 left-0 rounded-full w-20 h-20 ring-4 ring-gray-800 bg-gray-800"></div>
+                <div class="top-0 left-0 rounded-full w-20 h-20 ring-4 bg-inherit ring-inherit"></div>
                 <img class="absolute top-0 left-0 w-20 z-40 rounded-full" :src="'/storage/' + user.profile_pic" />
             </div>
             <div class="inline-block align-baseline">

@@ -16,7 +16,7 @@ const appconfig = {
     ],
     themes: {
         'light': 'cmyk',
-        'dark': 'night'
+        'dark': 'synthwave'
     }
 }
 
