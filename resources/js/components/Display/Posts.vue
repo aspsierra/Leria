@@ -67,12 +67,15 @@ let user = [];
 let display = ref(false)
 
 const displayUser = () => {
-    axios.get('/user/' + props.post.user_name)
-    .then(function(response){
-        //console.log(response);
-        //display.value = true
+    if (!display.value) {
+        axios.post('/user/getData/' + props.post.user_name)
+            .then(function (response) {
+                console.log(response);
+                user = response.data
+                display.value = true
 
-    })
+            })
+    }
 }
 
 const hideUser = () => {
@@ -93,8 +96,8 @@ const hideUser = () => {
             </div>
             </Link>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                <div v-if="display" v-for="post in posts.posts">
-                    <UserBrievInfo/>
+                <div v-if="display">
+                    <UserBrievInfo :userData="user" />
                 </div>
                 <div v-else class="flex justify-around mt-20">
                     <span class="loading loading-spinner loading-lg"></span>
