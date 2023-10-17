@@ -31,8 +31,9 @@ if (Array.isArray(props.user)) {
 const getPosts = (link = 'posts', clickTab = 'P') => {
     foundUserPosts.value = false
     tab.value = clickTab
-    axios.get('/user/' + userProfile.user_name + '/' + link)
+    axios.post('/user/' + userProfile.user_name + '/' + link)
     .then(function (response) {
+        console.log(response);
             posts = response.data
             foundUserPosts.value = true
         })

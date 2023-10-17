@@ -19,6 +19,9 @@ class UserProfileController extends Controller
             $user = Auth::user();
         }
 
+        if($user === null){
+            abort(404);
+        };
         $nPosts = DB::table('posts')
             ->where('user_id', $user->id)
             ->count('id');

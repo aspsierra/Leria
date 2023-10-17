@@ -69,7 +69,7 @@ let display = ref(false)
 const displayUser = () => {
     axios.get('/user/' + props.post.user_name)
     .then(function(response){
-        console.log(response);
+        //console.log(response);
         //display.value = true
 
     })

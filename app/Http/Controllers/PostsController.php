@@ -9,8 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
+
+   /* public function __invoke(Request $request)
+    {
+        dd('a');
+        dd($request);
+    }*/
     public function getAllPosts(String $id)
     {     
+
         DB::statement("SET SQL_MODE=''");
 
         $posts = DB::table('posts as p')
@@ -35,6 +42,9 @@ class PostsController extends Controller
 
     public function getOwnPosts(Request $request, String $userName)
     {
+        if($request->isMethod('get')){
+            abort(403);
+        }
 
         $posts = DB::table('posts as p')
             ->select('p.*', 'u.user_name', 'u.name', 'u.profile_pic')
