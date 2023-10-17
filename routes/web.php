@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
         Route::get('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
         Route::get('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
+        Route::get('/user/getData/{userName}', [UserProfileController::class, 'getUserData']);
     });
 
     Route::post('/getAllPosts/{id}', [PostsController::class , 'getAllPosts']);
