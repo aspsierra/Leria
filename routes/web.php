@@ -32,9 +32,17 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/user/{userName}', [UserProfileController::class, 'viewProfile']);
 
-    Route::get('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
-    Route::get('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
-    Route::get('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
+    Route::middleware('controlAccess')->group(function(){
+        Route::get('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
+        Route::get('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
+        Route::get('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
+    });
+
+    Route::post('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
+    Route::post('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
+    Route::post('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
+
+
     Route::get('/user/{userName}/following', [[UserProfileController::class, 'getFollowing']]);
 });
 
