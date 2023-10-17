@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
     Route::post('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
     Route::post('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
-
+    Route::post('/user/getData/{userName}', [UserProfileController::class, 'getUserData']);
 
     Route::get('/user/{userName}/following', [[UserProfileController::class, 'getFollowing']]);
 });

@@ -19,9 +19,19 @@ class UserProfileController extends Controller
             $user = Auth::user();
         }
 
-        if($user === null){
+        if ($user === null) {
             abort(404);
         };
+
+        return Inertia::render('UserProfile', [
+            'user' => $user->user_name,
+        ]);
+    }
+
+    public function getUserData(String $userName)
+    {
+        $user = User::where('user_name', $userName)->first();
+
         $nPosts = DB::table('posts')
             ->where('user_id', $user->id)
             ->count('id');
@@ -34,16 +44,11 @@ class UserProfileController extends Controller
             ->where('follower_id', $user->id)
             ->count();
 
-        return Inertia::render('UserProfile', [
+        return [
             'user' => $user,
             'nPosts' => $nPosts,
             'nFollowers' => $nFollowers,
             'nFollowing' => $nFollowing,
-            'posts' => []
-        ]);
+        ];
     }
-
-
-
-
 }

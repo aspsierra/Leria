@@ -10,36 +10,37 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
-    user: Object,
-    nPosts: Number,
-    nFollowers: Number,
-    nFollowing: Number,
+    user: String,
 })
 
+console.log(props.user);
 let posts = []
+let userData = [];
 let tab = ref('P')
+let foundUser= ref(false)
 let foundUserPosts = ref(false)
 
-let userProfile = props.user;
-
-if (Array.isArray(props.user)) {
-    userProfile = props.user[0];
+const getUserData = () =>{
+    foundUser.value = false
+    axios.post('/user/getData/' + props.user)
+    .then(function(response){
+        userData = response.data
+        foundUser.value = true
+    })
 }
-
-
 
 const getPosts = (link = 'posts', clickTab = 'P') => {
     foundUserPosts.value = false
     tab.value = clickTab
-    axios.post('/user/' + userProfile.user_name + '/' + link)
+    axios.post('/user/' + props.user + '/' + link)
     .then(function (response) {
-        console.log(response);
             posts = response.data
             foundUserPosts.value = true
         })
 }
 
 onBeforeMount(() => {
+    getUserData();
     getPosts();
 })
 let scrollY = ref(window.scrollY);
@@ -51,7 +52,7 @@ function scrollPosition() {
 </script>
 
 <template>
-    <Head :title="userProfile.name + ' - ' + userProfile.user_name" />
+    <Head :title="user" />
     <UserLayout :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto" @wheel="scrollPosition()">
         <div class="bg-indigo-300">
@@ -60,9 +61,12 @@ function scrollPosition() {
         <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
             <!-- USER INFO -->
             <section class="lg:block px-5 lg:w-1/4">
-                
-                <UserInfoLarge :userProfile="userProfile" :nPosts="nPosts" :nFollowers="nFollowers"
-                    :nFollowing="nFollowing" />
+                <div v-if="foundUser">
+                    <UserInfoLarge :userData="userData" />
+                </div>
+                <div v-else>
+                    <span class="loading loading-spinner loading-lg"></span>
+                </div>
             </section>
             <!-- CONTENT -->
             <section class=" min-h-screen lg:w-2/4 mx-4">
