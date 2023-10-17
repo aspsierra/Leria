@@ -2,7 +2,7 @@
 import { LikeIcon, CommentIcon, ShareIcon } from '../Icons/_ExportIcons';
 import { Link } from '@inertiajs/vue3';
 import { ref, onBeforeMount } from 'vue';
-import UserBrievInfo from './UserBrievInfo.vue';
+import UserModal from './UserModal.vue';
 import axios from 'axios';
 
 
@@ -91,13 +91,13 @@ const hideUser = () => {
             <Link class="" :href="'/user/' + post.user_name">
             <div class="avatar ">
                 <div class="w-10 h-10 rounded-full">
-                    <img :src="'/storage/' + post.profile_pic" alt="Tailwind-CSS-Avatar-component" />
+                    <img class="hover:opacity-50 transition-all duration-200" :src="'/storage/' + post.profile_pic" alt="Tailwind-CSS-Avatar-component" />
                 </div>
             </div>
             </Link>
-            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2  shadow-md shadow-gray-800 dark:shadow-gray-300 bg-base-100 rounded-box w-64">
                 <div v-if="display">
-                    <UserBrievInfo :userData="user" />
+                    <UserModal :userData="user" />
                 </div>
                 <div v-else class="flex justify-around mt-20">
                     <span class="loading loading-spinner loading-lg"></span>
