@@ -24,20 +24,21 @@ Route::redirect('/', 'login');
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [SiteController::class , 'index']);
     Route::post('/publishPost', [SiteController::class, 'storePost']);
-    Route::get('/getAllPosts/{id}', [PostsController::class , 'getAllPosts']);
-
+    
     Route::get('/checkShared', [SiteController::class , 'checkShared']);
     Route::get('/checkLiked', [SiteController::class , 'checkLiked']);
     
-
+    
     Route::get('/user/{userName}', [UserProfileController::class, 'viewProfile']);
-
+    
     Route::middleware('controlAccess')->group(function(){
+        Route::get('/getAllPosts/{id}', [PostsController::class , 'getAllPosts']);
         Route::get('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
         Route::get('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
         Route::get('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);
     });
 
+    Route::post('/getAllPosts/{id}', [PostsController::class , 'getAllPosts']);
     Route::post('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);
     Route::post('/user/{userName}/shares', [PostsController::class, 'getSharedPosts']);
     Route::post('/user/{userName}/likes', [PostsController::class, 'getLikedPosts']);

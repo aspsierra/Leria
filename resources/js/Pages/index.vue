@@ -24,7 +24,7 @@ function scrollPosition() {
 
 onBeforeMount(() => {
     foundUserPosts.value = false
-    axios.get('/getAllPosts/' + props.user.id)
+    axios.post('/getAllPosts/' + props.user.id)
     .then(function (response) {
             posts = response.data
             foundUserPosts.value = true
