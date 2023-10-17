@@ -44,11 +44,11 @@ class SiteController extends Controller
             ->count();
 
         return Inertia::render('index', [
-            'user' => Auth::user(),
-            //'posts' => $posts,
-            'nPosts' => $nPosts,
-            'nFollowers' => $nFollowers,
-            'nFollowing' => $nFollowing
+            'user' => Auth::user()->user_name,
+            // //'posts' => $posts,
+            // 'nPosts' => $nPosts,
+            // 'nFollowers' => $nFollowers,
+            // 'nFollowing' => $nFollowing
         ]);
     }
 

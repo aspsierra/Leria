@@ -1,5 +1,6 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage} from '@inertiajs/vue3';
+import { computed } from 'vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 
@@ -11,6 +12,10 @@ const form = useForm({
     userPost: ''
 })
 
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
+
 const submit = () =>{
     form.post('/publishPost?tz=' + Intl.DateTimeFormat().resolvedOptions().timeZone);
 }
@@ -20,7 +25,7 @@ const submit = () =>{
         <div class="flex flex-row gap-4 w-full">
             <div class="avatar">
                 <div class="w-20 h-20 rounded-full">
-                    <img :src="'/storage/' + pic" />
+                    <img :src="'/storage/' + user.profile_pic" />
                 </div>
             </div>
 

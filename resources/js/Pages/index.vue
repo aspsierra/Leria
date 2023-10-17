@@ -14,21 +14,39 @@ const props = defineProps({
     nFollowing: Number,
 })
 
+console.log(props.user);
+
 let scrollY = ref(window.scrollY);
 let foundUserPosts = ref(false)
+let foundUser = ref(false)
 let posts = []
+let userData = [];
 
 function scrollPosition() {
     scrollY.value = window.scrollY;
 }
 
-onBeforeMount(() => {
+const getUserData = () => {
+    foundUser.value = false
+    axios.post('/user/getData/' + props.user)
+        .then(function (response) {
+            userData = response.data
+            foundUser.value = true
+        })
+}
+
+const getAllPosts = () => {
     foundUserPosts.value = false
     axios.post('/getAllPosts/' + props.user.id)
-    .then(function (response) {
+        .then(function (response) {
             posts = response.data
             foundUserPosts.value = true
         })
+}
+
+onBeforeMount(() => {
+    getUserData();
+    getAllPosts();
 })
 
 </script>
@@ -37,7 +55,12 @@ onBeforeMount(() => {
     <component :is="user === null ? GuestLayoutVue : UserLayout" :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
         <section class="hidden bg-purple-500 lg:block  lg:w-1/4">
-            <UserBrievInfo :user="user" :posts="nPosts" :following="nFollowing" :followers="nFollowers" />
+            <div v-if="foundUser">
+                <UserBrievInfo :userData="userData" />
+            </div>
+            <div v-else>
+                <span class="loading loading-spinner loading-lg"></span>
+            </div>
         </section>
         <section class=" lg:w-2/4 mx-4">
             <div class="hidden lg:block bg-purple-300">
@@ -46,7 +69,7 @@ onBeforeMount(() => {
 
 
             <div v-if="foundUserPosts" v-for="post in posts.posts">
-                <Posts :post="post" :shared="posts.shares" :likes="posts.likes"/>
+                <Posts :post="post" :shared="posts.shares" :likes="posts.likes" />
             </div>
             <div v-else-if="foundUserPosts && posts.length <= 0" class="flex flex-col mt-20 items-center">
                 <SearchIcon class="h-1/4 w-1/4" />
