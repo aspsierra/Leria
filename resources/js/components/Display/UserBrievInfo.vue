@@ -15,7 +15,7 @@ const props = defineProps({
     <div class="  pb-4" >
         <header class="flex gap-2 ml-5">
             <div class="-mt-8 relative">
-                <div class="top-0 left-0 rounded-full w-20 h-20 ring-4 bg-inherit ring-inherit"></div>
+                <div class="top-0 left-0 rounded-full w-20 h-20 ring-4 bg-purple-500 ring-purple-500"></div>
                 <img class="absolute top-0 left-0 w-20 z-40 rounded-full" :src="'/storage/' + user.profile_pic" />
             </div>
             <div class="inline-block align-baseline">

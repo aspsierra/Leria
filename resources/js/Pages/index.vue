@@ -36,7 +36,7 @@ onBeforeMount(() => {
     <Head title='Inicio' />
     <component :is="user === null ? GuestLayoutVue : UserLayout" :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto lg:flex flex-row gap-1 mt-1" @wheel="scrollPosition()">
-        <section class="hidden bg-red-400 lg:block  lg:w-1/4">
+        <section class="hidden bg-purple-500 lg:block  lg:w-1/4">
             <UserBrievInfo :user="user" :posts="nPosts" :following="nFollowing" :followers="nFollowers" />
         </section>
         <section class=" lg:w-2/4 mx-4">
