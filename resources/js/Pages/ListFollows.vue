@@ -15,7 +15,7 @@ const props = defineProps({
     <Head :title="method + ' - ' + user.user_name" />
     <UserLayout :scrollY="scrollY" class="container mx-auto" />
     <div class="container mx-auto lg:flex flex-row gap-1 mt-1">
-        <div class="hidden lg:w-1/4" />
+        <div class="hidden lg:block lg:w-1/4" />
         <div class="lg:w-full mx-4">
 
             <p class="text-2xl font-bold">{{ user.name }}</p>
@@ -37,15 +37,17 @@ const props = defineProps({
                     <tr v-for="user in data" class="hover">
 
                         <td>
-                            <div class="flex items-center space-x-3">
-                                <HoverProfilePic :name="user.user_name" :pic="user.profile_pic" />
-                                
-                                <div>
-                                    <div class="font-bold">{{user.name}}</div>
-                                    <div>@{{ user.user_name }}</div>
-                                    <div class="text-sm opacity-50">{{user.bio}}</div>
-                                </div>
+                            <Link :href="'/user/' + user.user_name" class="flex items-center space-x-3">
+                            <HoverProfilePic :name="user.user_name" :pic="user.profile_pic" />
+
+                            <div>
+                                <div class="font-bold">{{ user.name }}</div>
+                                <div>@{{ user.user_name }}</div>
+                                <div class="text-sm opacity-50">{{ user.bio }}</div>
                             </div>
+
+                            </Link>
+
                         </td>
 
 
@@ -54,6 +56,7 @@ const props = defineProps({
             </table>
 
         </div>
-        <div class="hidden lg:w-1/4" />
+        <div class="hidden lg:block lg:w-1/4" />
 
-</div></template>
+    </div>
+</template>
