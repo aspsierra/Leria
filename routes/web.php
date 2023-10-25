@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
@@ -26,11 +27,11 @@ Route::middleware('auth')->group(function(){
     Route::post('/publishPost', [SiteController::class, 'storePost']);
     
     Route::get('/checkShared', [SiteController::class , 'checkShared']);
-    Route::get('/checkLiked', [SiteController::class , 'checkLiked']);
-    
+    Route::get('/checkLiked', [SiteController::class , 'checkLiked']); 
     
     Route::get('/user/{userName}', [UserProfileController::class, 'viewProfile']);
-    
+    Route::get('/user/{userName}/{method}', [FollowersController::class, 'list']);
+
     Route::middleware('controlAccess')->group(function(){
         Route::get('/getAllPosts/{id}', [PostsController::class , 'getAllPosts']);
         Route::get('/user/{userName}/posts', [PostsController::class, 'getOwnPosts']);

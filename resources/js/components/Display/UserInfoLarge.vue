@@ -1,12 +1,9 @@
 <script setup>
-import { AtIcon, MailIcon, CalendarIcon, LocationIcon } from '../Icons/_ExportIcons.js'
-
+import { Link } from '@inertiajs/vue3';
+import { MailIcon, CalendarIcon, LocationIcon } from '../Icons/_ExportIcons.js'
 
 const props = defineProps({
     userData: Array,
-    /*nFollowers: Number,
-    nFollowing: Number,
-    nPosts: Number,*/
 })
 
 let joinDate = new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
@@ -43,9 +40,9 @@ let joinDate = new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().l
             </p>
         </div>    
         <div class="flex flex-row justify-between lg:flex-col lg:gap-1">
-            <p>{{ userData.nPosts }} Posts</p>
-            <p>{{ userData.nFollowers }} Seguidores</p>
-            <p>{{ userData.nFollowing }} Siguiendo</p>
+            <p>{{ userData.nPosts }} Posts</p>      
+            <Link class="hover:underline" :href="'/user/' + userData.user.user_name + '/following'"><p>{{ userData.nFollowers }} Siguiendo</p> </Link>   
+            <Link class="hover:underline" :href="'/user/' + userData.user.user_name + '/followers'"><p>{{ userData.nFollowers }} Seguidores</p> </Link>
         </div>
             
         

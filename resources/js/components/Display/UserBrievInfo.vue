@@ -1,5 +1,5 @@
 <script setup>
-
+import { Link } from '@inertiajs/vue3';
 const props = defineProps({
     userData: Array,
 })
@@ -26,14 +26,14 @@ const props = defineProps({
                 <h3 class="font-semibold text-gray-500">Posts</h3>
                 <h2 class="text-lg font-bold">{{ userData.nPosts }}</h2>
             </div>
-            <div class="">
+            <Link :href="'/user/' + userData.user.user_name + '/following'" class="hover:underline">
                 <h3 class="font-semibold text-gray-500">Siguiendo</h3>
                 <h2 class="text-lg font-bold">{{ userData.nFollowing }}</h2>
-            </div>
-            <div class="">
+            </Link>
+            <Link :href="'/user/' + userData.user.user_name + '/followers'" class="hover:underline">
                 <h3 class="font-semibold text-gray-500">Seguidores</h3>
                 <h2 class="text-lg font-bold">{{ userData.nFollowers }}</h2>
-            </div>
+            </Link>
         </body>
     </div>
 </template>
